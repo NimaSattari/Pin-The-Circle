@@ -6,57 +6,9 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
-    guid: 8ff660be7d7dc2d4a88c233f00aedcb9
+    path: Assets/Scenes/Main Menu.unity
+    guid: 6efc1c9ac4e252345a6bcbfdfb203961
   - enabled: 1
-    path: Assets/Scenes/LevelSelection.unity
-    guid: a7c2141844926b644a54dbd5dd787aec
-  - enabled: 1
-    path: Assets/Scenes/Game 1.unity
-    guid: 47e6337cb3bfd70438f591fc79212183
-  - enabled: 1
-    path: Assets/Scenes/Game 2.unity
-    guid: 3ff6ef7845be0d14b93fd1c24e82fe9b
-  - enabled: 1
-    path: Assets/Scenes/Game 3.unity
-    guid: 6a2231498ec0e614baff1bc9590505f0
-  - enabled: 1
-    path: Assets/Scenes/Game 4.unity
-    guid: 61267e460322f68418bc99abbb9c8ba5
-  - enabled: 1
-    path: Assets/Scenes/Game 5.unity
-    guid: 5ccaf018f30be3742ae71e952add809d
-  - enabled: 1
-    path: Assets/Scenes/Game 6.unity
-    guid: 255269b1fca18a34481268a2a296079a
-  - enabled: 1
-    path: Assets/Scenes/Game 7.unity
-    guid: 73e68c12aba7eb14aa041deea9481537
-  - enabled: 1
-    path: Assets/Scenes/Game 8.unity
-    guid: 2b2f5226414cb994b8c4f2c7445eda31
-  - enabled: 1
-    path: Assets/Scenes/Game 9.unity
-    guid: 92a611d3f593bbc40a35c1b0e9a72a87
-  - enabled: 1
-    path: Assets/Scenes/Game 10.unity
-    guid: 0a23fe0f15f4d3249992bb4507180561
-  - enabled: 1
-    path: Assets/Scenes/Game 11.unity
-    guid: 2736d397dba5bc441837509f661b2e2c
-  - enabled: 1
-    path: Assets/Scenes/Game 12.unity
-    guid: b30a06748d43ec64ea07eadb25fe3d5b
-  - enabled: 1
-    path: Assets/Scenes/Game 13.unity
-    guid: 8b5f2bb8bcc850648a11522aaf92eca5
-  - enabled: 1
-    path: Assets/Scenes/Game 14.unity
-    guid: b7526fc8ddac9d74aa061f1ed51d1d0e
-  - enabled: 1
-    path: Assets/Scenes/Game 15.unity
-    guid: 8da44d2acf492704ba7c424ba93f1518
-  - enabled: 1
-    path: Assets/Scenes/Game 16.unity
-    guid: e0257a30857510e4ab333f4004327df9
+    path: Assets/Scenes/New Game.unity
+    guid: 2c5095f2cbe13dd48a5449631f4d19c5
   m_configObjects: {}

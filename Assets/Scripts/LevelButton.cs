@@ -6,9 +6,11 @@ using UnityEngine.UI;
 public class LevelButton : MonoBehaviour
 {
     public int Level;
-    public int LevelPassed;
     public GameObject Lock;
-    private void Awake()
+
+    int LevelPassed;
+
+    private void Start()
     {
         LevelPassed = PlayerPrefs.GetInt("LevelPass", LevelPassed);
         if (Level > LevelPassed)

@@ -7,13 +7,9 @@ TagManager:
   - Circle
   - Pin Head
   - Worm
-  - Orange
-  - Melon
   - HalfKnife
   - Rock
-  - Apple
-  - Coco
-  - Lemon
+  - Fruit
   layers:
   - Default
   - TransparentFX

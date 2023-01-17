@@ -1,119 +1,129 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 using UnityEngine.UI;
-using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
+    #region Singleton
     public static GameManager instance;
-    public Button Shoot;
-    [SerializeField] GameObject Pin;
-    GameObject[] Pins;
-    float PinDistance = 3f;
-    int PinIndex;
-    [SerializeField] int HowManyPins;
-    public bool GameOverBool = false;
-    [SerializeField] GameObject GameOver;
-    [SerializeField] GameObject Win;
-    [SerializeField] Sprite[] Faces;
-    [SerializeField] SpriteRenderer TheFace;
-    [SerializeField] GameObject Menu;
-    [SerializeField] GameObject back;
-    [SerializeField] AudioClip WinSound;
-    [SerializeField] int HowManyPinsForFaces;
-    public static int LevelPassed;
 
-    private void Awake()
+    void Awake()
     {
-        Text LevelText = GameObject.Find("LevelText").GetComponent<Text>();
-        LevelText.text = "Level " + (SceneManager.GetActiveScene().buildIndex - 1);
         if (instance == null)
         {
             instance = this;
         }
-        GetButton();
     }
+    #endregion
+
+    [SerializeField] private TextMeshProUGUI knifeText;
+    [SerializeField] private TextMeshProUGUI scoreText;
+    [SerializeField] private TextMeshProUGUI levelText;
+    [SerializeField] private GameObject pinsParentGameObject;
+    [SerializeField] private GameObject pinPrefab;
+    [SerializeField] private int howManyKnifesInGame;
+    [SerializeField] private int level;
+    [SerializeField] private List<GameObject> allPins = new List<GameObject>();
+    [SerializeField] Sprite[] faces;
+    [SerializeField] private Button shooterButton;
+    [SerializeField] SpriteRenderer theFace;
+    [SerializeField] List<GameObject> fruits;
+
+    public int money;
+    int remainedKnifes;
+    int score;
+    int pinIndex;
+    int LevelPassed;
+    bool isLose;
+
     private void Start()
     {
-        CreatePin();
+        remainedKnifes = howManyKnifesInGame;
+        knifeText.text = remainedKnifes.ToString() + "/" + howManyKnifesInGame;
+        levelText.text = "Level: " + level.ToString();
+        money = PlayerPrefs.GetInt("Money", money);
+        CreatePins();
     }
-    void Update()
-    {
-        if (Application.platform == RuntimePlatform.Android)
-        {
 
-            // Check if Back was pressed this frame
-            if (Input.GetKeyDown(KeyCode.Escape))
-            {
-
-                // Quit the application
-                Menu.SetActive(true);
-            }
-        }
-        if (Input.GetKeyDown(KeyCode.R))
-        {
-            Time.timeScale = 0;
-        }
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            Time.timeScale = 1;
-        }
-        if (GameOverBool)
-        {
-            GameOver.SetActive(true);
-        }
-    }
-    void GetButton()
+    public void SetRemainedKnifes()
     {
-        Shoot = GameObject.Find("Shoot Button").GetComponent<Button>();
-        Shoot.onClick.AddListener(() => ShootPin());
+        remainedKnifes--;
+        knifeText.text = remainedKnifes.ToString() + "/" + howManyKnifesInGame;
+        pinIndex = howManyKnifesInGame - remainedKnifes;
     }
+
+    public void IncrementScore()
+    {
+        score++;
+        scoreText.text = score.ToString();
+    }
+
+    public void DecrementScore()
+    {
+        score--;
+        scoreText.text = score.ToString();
+    }
+
+    public void SaveScore()
+    {
+        PlayerPrefs.SetInt("Money", money + score);
+    }
+
+    void CreatePins()
+    {
+        for (int i = 0; i < howManyKnifesInGame; i++)
+        {
+            GameObject pinInstant = Instantiate(pinPrefab, pinsParentGameObject.transform.position, Quaternion.identity, pinsParentGameObject.transform);
+            allPins.Add(pinInstant);
+        }
+        shooterButton.onClick.AddListener(() => ShootPin());
+    }
+
+    IEnumerator ChangeFace(int face)
+    {
+        yield return new WaitForSeconds(0.1f);
+        theFace.sprite = faces[face];
+    }
+
     public void ShootPin()
     {
-        Pins[PinIndex].GetComponent<PinMove>().FirePin();
-        Pins[PinIndex].transform.parent = null;
-        Pins[PinIndex].GetComponent<PinMove>().PinHead.GetComponent<BoxCollider2D>().enabled = true;
-        Pins[PinIndex].GetComponent<PinMove>().CrossBow = false;
-        transform.position += new Vector3(0f, 3f, 0f);
-        PinIndex++;
-        if(PinIndex == Pins.Length)
+        SetRemainedKnifes();
+        allPins[pinIndex - 1].GetComponent<Knife>().FirePin();
+
+        if (howManyKnifesInGame == 10)
         {
-            Shoot.onClick.RemoveAllListeners();
-            StartCoroutine(LoadNext());
-        }
-        if (HowManyPinsForFaces == 10)
-        {
-            if ((Pins.Length - PinIndex) <= 9f)
+            if ((remainedKnifes) <= 9f)
             {
-                StartCoroutine(changeFace(1));
-                if ((Pins.Length - PinIndex) <= 8f)
+                StartCoroutine(ChangeFace(1));
+                if ((remainedKnifes) <= 8f)
                 {
-                    StartCoroutine(changeFace(2));
-                    if ((Pins.Length - PinIndex) <= 7f)
+                    StartCoroutine(ChangeFace(2));
+                    if ((remainedKnifes) <= 7f)
                     {
-                        StartCoroutine(changeFace(3));
-                        if ((Pins.Length - PinIndex) <= 6f)
+                        StartCoroutine(ChangeFace(3));
+                        if ((remainedKnifes) <= 6f)
                         {
-                            StartCoroutine(changeFace(4));
-                            if ((Pins.Length - PinIndex) <= 5f)
+                            StartCoroutine(ChangeFace(4));
+                            if ((remainedKnifes) <= 5f)
                             {
-                                StartCoroutine(changeFace(5));
-                                if ((Pins.Length - PinIndex) <= 4f)
+                                StartCoroutine(ChangeFace(5));
+                                if ((remainedKnifes) <= 4f)
                                 {
-                                    StartCoroutine(changeFace(6));
-                                    if ((Pins.Length - PinIndex) <= 3f)
+                                    StartCoroutine(ChangeFace(6));
+                                    if ((remainedKnifes) <= 3f)
                                     {
-                                        StartCoroutine(changeFace(7));
-                                        if ((Pins.Length - PinIndex) <= 2f)
+                                        StartCoroutine(ChangeFace(7));
+                                        if ((remainedKnifes) <= 2f)
                                         {
-                                            StartCoroutine(changeFace(8));
-                                            if ((Pins.Length - PinIndex) <= 1f)
+                                            StartCoroutine(ChangeFace(8));
+                                            if ((remainedKnifes) <= 1f)
                                             {
-                                                StartCoroutine(changeFace(9));
-                                                if ((Pins.Length - PinIndex) <= 0f)
+                                                StartCoroutine(ChangeFace(9));
+                                                if ((remainedKnifes) <= 0f)
                                                 {
-                                                    StartCoroutine(changeFace(10));
+                                                    StartCoroutine(ChangeFace(10));
                                                 }
                                             }
                                         }
@@ -125,29 +135,29 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        if(HowManyPinsForFaces == 7)
+        if (howManyKnifesInGame == 7)
         {
-            if ((Pins.Length - PinIndex) <= 6f)
+            if ((remainedKnifes) <= 6f)
             {
-                StartCoroutine(changeFace(2));
-                if ((Pins.Length - PinIndex) <= 5f)
+                StartCoroutine(ChangeFace(2));
+                if ((remainedKnifes) <= 5f)
                 {
-                    StartCoroutine(changeFace(4));
-                    if ((Pins.Length - PinIndex) <= 4f)
+                    StartCoroutine(ChangeFace(4));
+                    if ((remainedKnifes) <= 4f)
                     {
-                        StartCoroutine(changeFace(6));
-                        if ((Pins.Length - PinIndex) <= 3f)
+                        StartCoroutine(ChangeFace(6));
+                        if ((remainedKnifes) <= 3f)
                         {
-                            StartCoroutine(changeFace(7));
-                            if ((Pins.Length - PinIndex) <= 2f)
+                            StartCoroutine(ChangeFace(7));
+                            if ((remainedKnifes) <= 2f)
                             {
-                                StartCoroutine(changeFace(8));
-                                if ((Pins.Length - PinIndex) <= 1f)
+                                StartCoroutine(ChangeFace(8));
+                                if ((remainedKnifes) <= 1f)
                                 {
-                                    StartCoroutine(changeFace(9));
-                                    if ((Pins.Length - PinIndex) <= 0f)
+                                    StartCoroutine(ChangeFace(9));
+                                    if ((remainedKnifes) <= 0f)
                                     {
-                                        StartCoroutine(changeFace(10));
+                                        StartCoroutine(ChangeFace(10));
                                     }
                                 }
                             }
@@ -156,142 +166,73 @@ public class GameManager : MonoBehaviour
                 }
             }
         }
-        if(HowManyPinsForFaces == 5)
+        if (howManyKnifesInGame == 5)
         {
-            if ((Pins.Length - PinIndex) <= 4f)
+            if ((remainedKnifes) <= 4f)
             {
-                StartCoroutine(changeFace(2));
-                if ((Pins.Length - PinIndex) <= 3f)
+                StartCoroutine(ChangeFace(2));
+                if ((remainedKnifes) <= 3f)
                 {
-                    StartCoroutine(changeFace(4));
-                    if ((Pins.Length - PinIndex) <= 2f)
+                    StartCoroutine(ChangeFace(4));
+                    if ((remainedKnifes) <= 2f)
                     {
-                        StartCoroutine(changeFace(6));
-                        if ((Pins.Length - PinIndex) <= 1f)
+                        StartCoroutine(ChangeFace(6));
+                        if ((remainedKnifes) <= 1f)
                         {
-                            StartCoroutine(changeFace(8));
-                            if ((Pins.Length - PinIndex) <= 0f)
+                            StartCoroutine(ChangeFace(8));
+                            if ((remainedKnifes) <= 0f)
                             {
-                                StartCoroutine(changeFace(10));
+                                StartCoroutine(ChangeFace(10));
                             }
                         }
                     }
                 }
             }
         }
-        if(HowManyPinsForFaces == 3)
+        if (howManyKnifesInGame == 3)
         {
-            if ((Pins.Length - PinIndex) <= 2f)
+            if ((remainedKnifes) <= 2f)
             {
-                StartCoroutine(changeFace(3));
-                if ((Pins.Length - PinIndex) <= 1f)
+                StartCoroutine(ChangeFace(3));
+                if ((remainedKnifes) <= 1f)
                 {
-                    StartCoroutine(changeFace(6));
-                    if ((Pins.Length - PinIndex) <= 0f)
+                    StartCoroutine(ChangeFace(6));
+                    if ((remainedKnifes) <= 0f)
                     {
-                        StartCoroutine(changeFace(10));
+                        StartCoroutine(ChangeFace(10));
                     }
                 }
             }
         }
-    }
-    IEnumerator changeFace(int face)
-    {
-        yield return new WaitForSeconds(0.1f);
-        TheFace.sprite = Faces[face];
-    }
-    void CreatePin()
-    {
-        Pins = new GameObject[HowManyPins];
-        Vector3 temp = transform.position;
-        for(int i = 0;i<Pins.Length; i++)
+
+        if (pinIndex == howManyKnifesInGame)
         {
-            Pins[i] = Instantiate(Pin, temp, Quaternion.identity) as GameObject;
-            Pins[i].transform.parent = gameObject.transform;
-            temp.y -= PinDistance;
-        }
-    }
-    public void InstantiatePin()
-    {
-        Instantiate(Pin, transform.position, Quaternion.identity);
-    }
-    IEnumerator LoadNext()
-    {
-        yield return new WaitForSeconds(0.5f);
-        if (!GameOverBool)
-        {
-            LevelPassed = PlayerPrefs.GetInt("LevelPass", LevelPassed);
-            if (SceneManager.GetActiveScene().buildIndex > LevelPassed)
-            {
-                LevelPassed = SceneManager.GetActiveScene().buildIndex;
-                PlayerPrefs.SetInt("LevelPass", LevelPassed);
-                Score.instance.IncrementScore();
-            }
-            GetComponent<AudioSource>().PlayOneShot(WinSound);
-            yield return new WaitForSeconds(0.5f);
-            Win.SetActive(true);
-            back.SetActive(false);
+            StartCoroutine(WaitIfLoseInShootPin());
         }
     }
 
-    public void LoadThisByMoney()
+    public IEnumerator WaitIfLoseInShootPin()
     {
-        if (Score.instance.publicMoney >= 2)
+        yield return new WaitForSeconds(0.5f);
+        if (!isLose)
         {
-            Score.instance.DecrementScore();
-            Score.instance.DecrementScore();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+            AudioManager.instance.PlayOnShot(AudioManager.instance.winSound);
+            LevelPassed = PlayerPrefs.GetInt("LevelPass", LevelPassed);
+            UIManager.instance.LoadWinPanel();
+            if (level >= LevelPassed)
+            {
+                LevelPassed = level;
+                PlayerPrefs.SetInt("LevelPass", LevelPassed);
+                SaveScore();
+            }
         }
     }
-    public void LoadThisByLevel()
+
+    public void Lose()
     {
-        if(SceneManager.GetActiveScene().buildIndex == 2)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        if(SceneManager.GetActiveScene().buildIndex == 3)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex -1);
-        }
-        else
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
-        }
-    }
-    public void BackMenu()
-    {
-        Time.timeScale = 0;
-        Menu.SetActive(true);
-    }
-    public void Resume()
-    {
-        Menu.SetActive(false);
-        Time.timeScale = 1;
-    }
-    public void Reset()
-    {
-        Score.instance.BackTheScore();
-        Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-    public void Back()
-    {
-        Score.instance.BackTheScore();
-        Time.timeScale = 1;
-        SceneManager.LoadScene(1);
-    }
-    public void NextLevel()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
-    }
-    public void ResetNext()
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
-    public void BackNext()
-    {
-        Time.timeScale = 1;
-        SceneManager.LoadScene(1);
+        isLose = true;
+        shooterButton.onClick.RemoveAllListeners();
+        UIManager.instance.LoadLosePanel();
+        AudioManager.instance.PlayOnShot(AudioManager.instance.loseSound);
     }
 }
