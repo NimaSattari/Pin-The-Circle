@@ -10,6 +10,7 @@ TagManager:
   - HalfKnife
   - Rock
   - Fruit
+  - FxTemporaire
   layers:
   - Default
   - TransparentFX
@@ -49,4 +50,7 @@ TagManager:
     locked: 0
   - name: UI
     uniqueID: 1168946001
+    locked: 0
+  - name: Particle
+    uniqueID: 1532833781
     locked: 0

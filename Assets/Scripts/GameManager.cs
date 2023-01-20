@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using DG.Tweening;
 
 public class GameManager : MonoBehaviour
 {
@@ -18,201 +19,165 @@ public class GameManager : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] private TextMeshProUGUI knifeText;
-    [SerializeField] private TextMeshProUGUI scoreText;
-    [SerializeField] private TextMeshProUGUI levelText;
-    [SerializeField] private GameObject pinsParentGameObject;
-    [SerializeField] private GameObject pinPrefab;
-    [SerializeField] private int howManyKnifesInGame;
-    [SerializeField] private int level;
-    [SerializeField] private List<GameObject> allPins = new List<GameObject>();
-    [SerializeField] Sprite[] faces;
-    [SerializeField] private Button shooterButton;
-    [SerializeField] SpriteRenderer theFace;
-    [SerializeField] List<GameObject> fruits;
+    [Header("Set In Inspector")] 
+    [SerializeField] TextMeshProUGUI knifeText;
+    [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI levelText;
+    [SerializeField] GameObject pinsParentGameObject;
+    [SerializeField] GameObject fruitParentGameObject;
+    [SerializeField] GameObject pinPrefab;
+    [SerializeField] Button shooterButton;
+    [SerializeField] GameObject[] fruitPrefabs;
 
-    public int money;
+    [Header("Level Related")]
+    [SerializeField] LevelAsset levelAsset;
+    [SerializeField] int level;
+    [SerializeField] int howManyFruits;
+    [Range(0, 7)]
+    public int rangeOfObjectsOnTopOfFruitsBottom;
+    [Range(0, 7)]
+    public int rangeOfObjectsOnTopOfFruitsTop;
+    [Range(100, 300)]
+    public int rangeOfSpeedsBottom;
+    [Range(100, 300)]
+    public int rangeOfSpeedsTop;
+    [Range(1, 10)]
+    public int rangeOfFruitRotateTimerBottom;
+    [Range(1, 10)]
+    public int rangeOfFruitRotateTimerTop;
+
+    List<GameObject> knifesList = new List<GameObject>();
+    List<GameObject> fruitsList = new List<GameObject>();
+    int[] numbers = { 3, 5, 7, 10 };
+    int allMoney;
     int remainedKnifes;
-    int score;
-    int pinIndex;
+    int thisRoundScore;
     int LevelPassed;
+    int whichFruitNow;
     bool isLose;
+    int howManyKnifesInGame;
+    bool canShootFruitChange, canShootShake;
 
     private void Start()
     {
-        remainedKnifes = howManyKnifesInGame;
-        knifeText.text = remainedKnifes.ToString() + "/" + howManyKnifesInGame;
+        allMoney = PlayerPrefs.GetInt("Money", allMoney);
+        CreateFruits();
+    }
+
+    private void CreateFruits()
+    {
+        level = levelAsset.level;
+        howManyFruits = levelAsset.howManyFruits;
+        rangeOfObjectsOnTopOfFruitsBottom = levelAsset.rangeOfObjectsOnTopOfFruitsBottom;
+        rangeOfObjectsOnTopOfFruitsTop = levelAsset.rangeOfObjectsOnTopOfFruitsTop;
+        rangeOfSpeedsBottom = levelAsset.rangeOfSpeedsBottom;
+        rangeOfSpeedsTop = levelAsset.rangeOfSpeedsTop;
+        rangeOfFruitRotateTimerBottom = levelAsset.rangeOfFruitRotateTimerBottom;
+        rangeOfFruitRotateTimerTop = levelAsset.rangeOfFruitRotateTimerTop;
+
         levelText.text = "Level: " + level.ToString();
-        money = PlayerPrefs.GetInt("Money", money);
+
+        for (int i = 0; i < howManyFruits; i++)
+        {
+            int randomIndex = Random.Range(0, 4);
+            int howManyKnifesForThisFruit = numbers[randomIndex];
+            GameObject fruitInstant = Instantiate(fruitPrefabs[Random.Range(0, fruitPrefabs.Length)], fruitParentGameObject.transform.position, Quaternion.identity, fruitParentGameObject.transform);
+            fruitsList.Add(fruitInstant);
+            fruitInstant.GetComponent<CircleRotator>().SetLevelValues(Random.Range(rangeOfObjectsOnTopOfFruitsBottom, rangeOfObjectsOnTopOfFruitsTop),
+                                                                        howManyKnifesForThisFruit,
+                                                                        rangeOfSpeedsBottom,
+                                                                        rangeOfSpeedsTop,
+                                                                        Random.Range(rangeOfFruitRotateTimerBottom, rangeOfFruitRotateTimerTop));
+            fruitInstant.SetActive(false);
+
+            howManyKnifesInGame += howManyKnifesForThisFruit;
+        }
+        fruitsList[0].SetActive(true);
         CreatePins();
     }
 
-    public void SetRemainedKnifes()
-    {
-        remainedKnifes--;
-        knifeText.text = remainedKnifes.ToString() + "/" + howManyKnifesInGame;
-        pinIndex = howManyKnifesInGame - remainedKnifes;
-    }
-
-    public void IncrementScore()
-    {
-        score++;
-        scoreText.text = score.ToString();
-    }
-
-    public void DecrementScore()
-    {
-        score--;
-        scoreText.text = score.ToString();
-    }
-
-    public void SaveScore()
-    {
-        PlayerPrefs.SetInt("Money", money + score);
-    }
-
-    void CreatePins()
+    private void CreatePins()
     {
         for (int i = 0; i < howManyKnifesInGame; i++)
         {
             GameObject pinInstant = Instantiate(pinPrefab, pinsParentGameObject.transform.position, Quaternion.identity, pinsParentGameObject.transform);
-            allPins.Add(pinInstant);
+            knifesList.Add(pinInstant);
         }
+        remainedKnifes = howManyKnifesInGame;
+        knifeText.text = remainedKnifes.ToString() + "/" + howManyKnifesInGame;
         shooterButton.onClick.AddListener(() => ShootPin());
+        StartCoroutine(LetShootFruitChangeIn(1f));
+        StartCoroutine(LetShootShakeIn(0.25f));
     }
 
-    IEnumerator ChangeFace(int face)
+
+    public void DecrementRemainedKnifes()
     {
-        yield return new WaitForSeconds(0.1f);
-        theFace.sprite = faces[face];
+        knifesList.Remove(knifesList[0]);
+        remainedKnifes--;
+
+        knifeText.text = remainedKnifes.ToString() + "/" + howManyKnifesInGame;
+        StartCoroutine(ChangeColor(knifeText, 0.25f, Color.green, Color.white));
+    }
+
+    public void IncrementRemainedKnifes()
+    {
+        remainedKnifes++;
+        GameObject pinInstant = Instantiate(pinPrefab, pinsParentGameObject.transform.position, Quaternion.identity, pinsParentGameObject.transform);
+        knifesList.Add(pinInstant);
+
+        knifeText.text = remainedKnifes.ToString() + "/" + howManyKnifesInGame;
+        StartCoroutine(ChangeColor(knifeText, 0.25f, Color.red, Color.white));
+    }
+
+    public void IncrementScore()
+    {
+        thisRoundScore++;
+        scoreText.text = thisRoundScore.ToString();
+        StartCoroutine(ChangeColor(scoreText, 0.25f, Color.green, Color.white));
+    }
+
+    public void DecrementScore()
+    {
+        thisRoundScore--;
+        scoreText.text = thisRoundScore.ToString();
+        StartCoroutine(ChangeColor(scoreText, 0.25f, Color.red, Color.white));
+    }
+
+    public void SaveScore()
+    {
+        PlayerPrefs.SetInt("Money", allMoney + thisRoundScore);
     }
 
     public void ShootPin()
     {
-        SetRemainedKnifes();
-        allPins[pinIndex - 1].GetComponent<Knife>().FirePin();
+        if (canShootFruitChange && canShootShake)
+        {
+            knifesList[0].GetComponent<Knife>().FirePin();
+            DecrementRemainedKnifes();
+            if (remainedKnifes == 0)
+            {
+                StartCoroutine(WaitIfLoseInShootPin());
+            }
+            StartCoroutine(LetShootShakeIn(0.25f));
+        }
+    }
 
-        if (howManyKnifesInGame == 10)
+    public IEnumerator NextFruit()
+    {
+        StartCoroutine(LetShootFruitChangeIn(1f));
+        yield return new WaitForSeconds(0.25f);
+        fruitsList[whichFruitNow].SetActive(false);
+        whichFruitNow++;
+        if(whichFruitNow < howManyFruits)
         {
-            if ((remainedKnifes) <= 9f)
-            {
-                StartCoroutine(ChangeFace(1));
-                if ((remainedKnifes) <= 8f)
-                {
-                    StartCoroutine(ChangeFace(2));
-                    if ((remainedKnifes) <= 7f)
-                    {
-                        StartCoroutine(ChangeFace(3));
-                        if ((remainedKnifes) <= 6f)
-                        {
-                            StartCoroutine(ChangeFace(4));
-                            if ((remainedKnifes) <= 5f)
-                            {
-                                StartCoroutine(ChangeFace(5));
-                                if ((remainedKnifes) <= 4f)
-                                {
-                                    StartCoroutine(ChangeFace(6));
-                                    if ((remainedKnifes) <= 3f)
-                                    {
-                                        StartCoroutine(ChangeFace(7));
-                                        if ((remainedKnifes) <= 2f)
-                                        {
-                                            StartCoroutine(ChangeFace(8));
-                                            if ((remainedKnifes) <= 1f)
-                                            {
-                                                StartCoroutine(ChangeFace(9));
-                                                if ((remainedKnifes) <= 0f)
-                                                {
-                                                    StartCoroutine(ChangeFace(10));
-                                                }
-                                            }
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        if (howManyKnifesInGame == 7)
-        {
-            if ((remainedKnifes) <= 6f)
-            {
-                StartCoroutine(ChangeFace(2));
-                if ((remainedKnifes) <= 5f)
-                {
-                    StartCoroutine(ChangeFace(4));
-                    if ((remainedKnifes) <= 4f)
-                    {
-                        StartCoroutine(ChangeFace(6));
-                        if ((remainedKnifes) <= 3f)
-                        {
-                            StartCoroutine(ChangeFace(7));
-                            if ((remainedKnifes) <= 2f)
-                            {
-                                StartCoroutine(ChangeFace(8));
-                                if ((remainedKnifes) <= 1f)
-                                {
-                                    StartCoroutine(ChangeFace(9));
-                                    if ((remainedKnifes) <= 0f)
-                                    {
-                                        StartCoroutine(ChangeFace(10));
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        if (howManyKnifesInGame == 5)
-        {
-            if ((remainedKnifes) <= 4f)
-            {
-                StartCoroutine(ChangeFace(2));
-                if ((remainedKnifes) <= 3f)
-                {
-                    StartCoroutine(ChangeFace(4));
-                    if ((remainedKnifes) <= 2f)
-                    {
-                        StartCoroutine(ChangeFace(6));
-                        if ((remainedKnifes) <= 1f)
-                        {
-                            StartCoroutine(ChangeFace(8));
-                            if ((remainedKnifes) <= 0f)
-                            {
-                                StartCoroutine(ChangeFace(10));
-                            }
-                        }
-                    }
-                }
-            }
-        }
-        if (howManyKnifesInGame == 3)
-        {
-            if ((remainedKnifes) <= 2f)
-            {
-                StartCoroutine(ChangeFace(3));
-                if ((remainedKnifes) <= 1f)
-                {
-                    StartCoroutine(ChangeFace(6));
-                    if ((remainedKnifes) <= 0f)
-                    {
-                        StartCoroutine(ChangeFace(10));
-                    }
-                }
-            }
-        }
-
-        if (pinIndex == howManyKnifesInGame)
-        {
-            StartCoroutine(WaitIfLoseInShootPin());
+            fruitsList[whichFruitNow].SetActive(true);
         }
     }
 
     public IEnumerator WaitIfLoseInShootPin()
     {
+        shooterButton.onClick.RemoveAllListeners();
         yield return new WaitForSeconds(0.5f);
         if (!isLose)
         {
@@ -228,11 +193,31 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private IEnumerator LetShootFruitChangeIn(float timerr)
+    {
+        canShootFruitChange = false;
+        yield return new WaitForSeconds(timerr);
+        canShootFruitChange = true;
+    }
+
+    private IEnumerator LetShootShakeIn(float timerr)
+    {
+        canShootShake = false;
+        yield return new WaitForSeconds(timerr);
+        canShootShake = true;
+    }
+
     public void Lose()
     {
         isLose = true;
-        shooterButton.onClick.RemoveAllListeners();
         UIManager.instance.LoadLosePanel();
         AudioManager.instance.PlayOnShot(AudioManager.instance.loseSound);
+    }
+
+    private IEnumerator ChangeColor(TextMeshProUGUI text, float timerr, Color firstColor, Color secondColor)
+    {
+        text.DOColor(firstColor, timerr);
+        yield return new WaitForSeconds(timerr);
+        text.DOColor(secondColor, timerr);
     }
 }

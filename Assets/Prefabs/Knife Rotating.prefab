@@ -160,8 +160,8 @@ MonoBehaviour:
   particles:
   - {fileID: 5008774334159378112, guid: 4c851379a79ad90428f994a8c82a5b9f, type: 3}
   speed: 35
-  angle: 17.5
-  CrossBow: 0
+  angle: 15
+  CrossBow: 1
 --- !u!50 &4928888583973369001
 Rigidbody2D:
   serializedVersion: 4
@@ -196,7 +196,7 @@ GameObject:
   - component: {fileID: 6846045910847269812}
   m_Layer: 0
   m_Name: Pin Head
-  m_TagString: Untagged
+  m_TagString: Pin Head
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

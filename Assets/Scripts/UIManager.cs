@@ -34,36 +34,6 @@ public class UIManager : MonoBehaviour
         pauseButton.SetActive(false);
     }
 
-    public void LoadLevelByMoney()
-    {
-        AudioManager.instance.PlayOnShot(AudioManager.instance.uISound);
-        Time.timeScale = 1;
-        if (GameManager.instance.money >= 2)
-        {
-            GameManager.instance.DecrementScore();
-            GameManager.instance.DecrementScore();
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-    }
-
-    public void LoadPreviousLevel()
-    {
-        AudioManager.instance.PlayOnShot(AudioManager.instance.uISound);
-        Time.timeScale = 1;
-        if (SceneManager.GetActiveScene().buildIndex == 1)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        }
-        if (SceneManager.GetActiveScene().buildIndex == 2)
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 1);
-        }
-        else
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex - 2);
-        }
-    }
-
     public void Pause()
     {
         AudioManager.instance.PlayOnShot(AudioManager.instance.uISound);

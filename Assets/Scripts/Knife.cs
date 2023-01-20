@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using System.Collections;
+using System.Collections.Generic;
 
 public class Knife : MonoBehaviour
 {
@@ -63,7 +65,7 @@ public class Knife : MonoBehaviour
             Rigid.isKinematic = false;
             Rigid.bodyType = RigidbodyType2D.Static;
             isItInFruit = true;
-            GameObject paricle = Instantiate(particles[Random.Range(0, particles.Length)], transform.position, transform.rotation);
+            GameObject paricle = Instantiate(particles[Random.Range(0, particles.Length)], transform.position, Quaternion.identity);
             Destroy(paricle, 2f);
             AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToFruitSound);
             transform.SetParent(collision.transform);
@@ -74,7 +76,7 @@ public class Knife : MonoBehaviour
             }
         }
 
-        if (collision.tag == "Pin Head")
+        else if (collision.tag == "Pin Head")
         {
             if (collision.GetComponentInParent<Knife>().isItInFruit)
             {
@@ -86,7 +88,7 @@ public class Knife : MonoBehaviour
             }
         }
 
-        if (collision.tag == "Worm")
+        else if (collision.tag == "Worm")
         {
             AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToWormSound);
             if (GameManager.instance != null)
@@ -95,16 +97,26 @@ public class Knife : MonoBehaviour
             }
         }
 
-        if(collision.tag == "Rock")
+        else if(collision.tag == "Rock")
         {
-            AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToRockSound);
             PinRemain.SetActive(false);
             KnifeH1.SetActive(true);
             KnifeH2.SetActive(true);
-            KnifeH1.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-30, 30), Random.Range(-30, 30)));
-            KnifeH2.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-30, 30), Random.Range(-30, 30)));
+            AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToRockSound);
+            KnifeH1.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40, 40), Random.Range(-40, 40)));
+            KnifeH2.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40, 40), Random.Range(-40, 40)));
             KnifeH1.GetComponent<Rigidbody2D>().MoveRotation(Mathf.LerpAngle(KnifeH1.GetComponent<Rigidbody2D>().rotation, (Random.Range(-180, 180)), 5 * Time.deltaTime));
             KnifeH2.GetComponent<Rigidbody2D>().MoveRotation(Mathf.LerpAngle(KnifeH2.GetComponent<Rigidbody2D>().rotation, (Random.Range(-180, 180)), 5 * Time.deltaTime));
+            GameManager.instance.DecrementScore();
+            GameManager.instance.IncrementRemainedKnifes();
+            SetParentToNull();
+            Destroy(gameObject, 2f);
         }
+    }
+
+    private IEnumerator SetParentToNull()
+    {
+        yield return new WaitForSeconds(0.5f);
+        transform.parent = null;
     }
 }
