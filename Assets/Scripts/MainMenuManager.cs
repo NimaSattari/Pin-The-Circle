@@ -92,4 +92,10 @@ public class MainMenuManager : MonoBehaviour
         AudioManager.instance.PlayOnShot(AudioManager.instance.uISounds[Random.Range(0, AudioManager.instance.uISounds.Length)]);
         SceneManager.LoadScene(3);
     }
+
+    public void PlayTime()
+    {
+        AudioManager.instance.PlayOnShot(AudioManager.instance.uISounds[Random.Range(0, AudioManager.instance.uISounds.Length)]);
+        SceneManager.LoadScene(4);
+    }
 }

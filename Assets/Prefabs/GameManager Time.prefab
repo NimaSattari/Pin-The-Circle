@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &8903160194989501646
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8903160194989501647}
+  m_Layer: 0
+  m_Name: Pins Parent Object
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8903160194989501647
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903160194989501646}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -4.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8903160195042718515}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8903160195042718514
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8903160195042718515}
+  - component: {fileID: 1230627638327724118}
+  m_Layer: 0
+  m_Name: GameManager Time
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8903160195042718515
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903160195042718514}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 8903160194989501647}
+  - {fileID: 8903160195369905297}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1230627638327724118
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903160195042718514}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b949a33d6c3c00d4ebb4a6460cbe41c1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pinsParentGameObject: {fileID: 8903160194989501646}
+  fruitParentGameObject: {fileID: 8903160195369905296}
+  pinPrefab: {fileID: 8090445116990291838, guid: 7c0f3fe01b1497c4998f731f4843b419, type: 3}
+  fruitPrefabs:
+  - {fileID: 4403896293332412705, guid: d3e355b4414026b46beea198e6c68aa8, type: 3}
+  - {fileID: 5857012972813350978, guid: 3f6df5f61076a9a45bc0632a74111707, type: 3}
+  - {fileID: 5857012972813350978, guid: 56a3c30fb2078b840b4d14b3ae65895b, type: 3}
+  - {fileID: 5857012972813350978, guid: 839a850435ce61741b0c2b5f71b7df0b, type: 3}
+  - {fileID: 5857012972813350978, guid: 986aca7c14d566e41a06174522063395, type: 3}
+  - {fileID: 5857012972813350978, guid: a6bbada9a593ece499ec199e06028b93, type: 3}
+  rangeOfObjectsOnTopOfFruitsBottom: 0
+  rangeOfObjectsOnTopOfFruitsTop: 7
+  rangeOfSpeedsBottom: 100
+  rangeOfSpeedsTop: 200
+  rangeOfFruitRotateTimerBottom: 1
+  rangeOfFruitRotateTimerTop: 10
+  initialTime: 30
+  timeToRmoveWhenKnifeCollideToKnife: 5
+  timeToAddWhenKnifeToFruit: 1
+  timeToAddWhenFruitKilled: 5
+  timer: 0
+--- !u!1 &8903160195369905296
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8903160195369905297}
+  m_Layer: 0
+  m_Name: Fruits Parent Object
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &8903160195369905297
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8903160195369905296}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8903160195042718515}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

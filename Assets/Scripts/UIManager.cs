@@ -29,6 +29,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI scoreText;
     [SerializeField] TextMeshProUGUI fruitText;
     [SerializeField] TextMeshProUGUI levelText;
+    [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] AllLevelsAsset allLevelsAsset;
     public Button shooterButton;
 
@@ -121,5 +122,16 @@ public class UIManager : MonoBehaviour
     public void SetLevelText(string level)
     {
         levelText.text = "Level: " + level;
+    }
+
+    public void SetTimeText(float timer)
+    {
+        timeText.text = timer.ToString("0");
+    }
+    public void SetTimeTextWithColor(float timer, Color color)
+    {
+        timeText.text = timer.ToString("0");
+        StartCoroutine(timeText.GetComponent<DoTweenActions>().OneLoop());
+        StartCoroutine(ChangeColor(timeText, 0.25f, color, Color.white));
     }
 }
