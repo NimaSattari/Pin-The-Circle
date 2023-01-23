@@ -5,18 +5,28 @@ using UnityEngine.UI;
 
 public class LevelButton : MonoBehaviour
 {
-    public int Level;
-    public GameObject Lock;
+    public Text levelText;
+    public GameObject LockImage;
+    public LevelAsset levelAsset;
 
     int LevelPassed;
+    int scorePassed;
 
     private void Start()
     {
         LevelPassed = PlayerPrefs.GetInt("LevelPass", LevelPassed);
-        if (Level > LevelPassed)
+        scorePassed = PlayerPrefs.GetInt("scorePassed", scorePassed);
+        levelText.text = levelAsset.level.ToString();
+
+        if (levelAsset.level > LevelPassed + 1)
         {
-            Lock.SetActive(true);
+            LockImage.SetActive(true);
             GetComponent<Button>().enabled = false;
+        }
+        else
+        {
+            LockImage.SetActive(false);
+            GetComponent<Button>().onClick.AddListener(() => MainMenuManager.instance.PlayLevel(levelAsset));
         }
     }
 }

@@ -1,0 +1,129 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &4901361177786621507
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4901361177786621506}
+  m_Layer: 0
+  m_Name: Fruits Parent Object
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4901361177786621506
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4901361177786621507}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 9, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4901361177979519456}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4901361177979519457
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4901361177979519456}
+  - component: {fileID: 4901361177979519460}
+  m_Layer: 0
+  m_Name: GameManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4901361177979519456
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4901361177979519457}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 4901361177990798876}
+  - {fileID: 4901361177786621506}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4901361177979519460
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4901361177979519457}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08802e50d9d645b4a92eaf7dba84940d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pinsParentGameObject: {fileID: 4901361177990798877}
+  fruitParentGameObject: {fileID: 4901361177786621507}
+  pinPrefab: {fileID: 8090445116990291838, guid: 7c0f3fe01b1497c4998f731f4843b419, type: 3}
+  fruitPrefabs:
+  - {fileID: 4403896293332412705, guid: d3e355b4414026b46beea198e6c68aa8, type: 3}
+  - {fileID: 5857012972813350978, guid: 3f6df5f61076a9a45bc0632a74111707, type: 3}
+  - {fileID: 5857012972813350978, guid: 56a3c30fb2078b840b4d14b3ae65895b, type: 3}
+  - {fileID: 5857012972813350978, guid: 839a850435ce61741b0c2b5f71b7df0b, type: 3}
+  - {fileID: 5857012972813350978, guid: 986aca7c14d566e41a06174522063395, type: 3}
+  - {fileID: 5857012972813350978, guid: a6bbada9a593ece499ec199e06028b93, type: 3}
+  levelAsset: {fileID: 11400000, guid: 6513b9d4b475ee745b5f9b4b44165701, type: 2}
+  level: 1
+  howManyFruits: 5
+  rangeOfObjectsOnTopOfFruitsBottom: 0
+  rangeOfObjectsOnTopOfFruitsTop: 0
+  rangeOfSpeedsBottom: 100
+  rangeOfSpeedsTop: 100
+  rangeOfFruitRotateTimerBottom: 1
+  rangeOfFruitRotateTimerTop: 1
+--- !u!1 &4901361177990798877
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4901361177990798876}
+  m_Layer: 0
+  m_Name: Pins Parent Object
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4901361177990798876
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4901361177990798877}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: -4.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 4901361177979519456}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

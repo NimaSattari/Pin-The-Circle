@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9b2e8acbab432694d981bb21fd29a99c, type: 3}
-  m_Name: New Level Asset
+  m_Name: Level Asset 3
   m_EditorClassIdentifier: 
-  level: 5
-  howManyFruits: 10
-  rangeOfObjectsOnTopOfFruitsBottom: 1
-  rangeOfObjectsOnTopOfFruitsTop: 5
+  level: 3
+  howManyFruits: 5
+  rangeOfObjectsOnTopOfFruitsBottom: 2
+  rangeOfObjectsOnTopOfFruitsTop: 3
   rangeOfSpeedsBottom: 100
   rangeOfSpeedsTop: 130
-  rangeOfFruitRotateTimerBottom: 1
-  rangeOfFruitRotateTimerTop: 1
+  rangeOfFruitRotateTimerBottom: 5
+  rangeOfFruitRotateTimerTop: 10

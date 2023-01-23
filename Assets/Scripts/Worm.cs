@@ -30,5 +30,6 @@ public class Worm : MonoBehaviour
         dead2.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-30, 30), Random.Range(-30, 30)));
         dead2.GetComponent<Rigidbody2D>().MoveRotation(Mathf.LerpAngle(dead2.GetComponent<Rigidbody2D>().rotation, (Random.Range(-180, 180)), 5 * Time.deltaTime));
         dead1.GetComponent<Rigidbody2D>().MoveRotation(Mathf.LerpAngle(dead1.GetComponent<Rigidbody2D>().rotation, (Random.Range(-180, 180)), 5 * Time.deltaTime));
+        Destroy(this.gameObject, 2f);
     }
 }

@@ -33,10 +33,12 @@ public class DoTweenActions : MonoBehaviour
         initalLocation = transform.localPosition;
         initalSize = transform.localScale;
         initalRotation = transform.localRotation.eulerAngles;
+        Start();
     }
 
     private void OnDisable()
     {
+        DOTween.Kill(transform);
         transform.localPosition = initalLocation;
         transform.localScale = initalSize;
         transform.localEulerAngles = initalRotation;

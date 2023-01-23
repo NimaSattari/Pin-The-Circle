@@ -59,7 +59,41 @@ public class Knife : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "Fruit")
+        if (collision.tag == "Rock")
+        {
+            PinRemain.SetActive(false);
+            KnifeH1.SetActive(true);
+            KnifeH2.SetActive(true);
+            AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToRockSound);
+            KnifeH1.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40, 40), Random.Range(-40, 40)));
+            KnifeH2.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40, 40), Random.Range(-40, 40)));
+            KnifeH1.GetComponent<Rigidbody2D>().MoveRotation(Mathf.LerpAngle(KnifeH1.GetComponent<Rigidbody2D>().rotation, (Random.Range(-180, 180)), 5 * Time.deltaTime));
+            KnifeH2.GetComponent<Rigidbody2D>().MoveRotation(Mathf.LerpAngle(KnifeH2.GetComponent<Rigidbody2D>().rotation, (Random.Range(-180, 180)), 5 * Time.deltaTime));
+            GameManager.instance.DecrementScore();
+            GameManager.instance.IncrementRemainedKnifes();
+            SetParentToNull();
+            Destroy(gameObject, 2f);
+        }
+        else if (collision.tag == "Pin Head")
+        {
+            if (collision.GetComponentInParent<Knife>().isItInFruit)
+            {
+                AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToKnifeSound);
+                if (GameManager.instance != null)
+                {
+                    GameManager.instance.Lose();
+                }
+            }
+        }
+        else if (collision.tag == "Worm")
+        {
+            AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToWormSound);
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.IncrementScore();
+            }
+        }
+        else if (collision.tag == "Fruit")
         {
             CanShoot = false;
             Rigid.isKinematic = false;
@@ -74,43 +108,6 @@ public class Knife : MonoBehaviour
             {
                 GameManager.instance.IncrementScore();
             }
-        }
-
-        else if (collision.tag == "Pin Head")
-        {
-            if (collision.GetComponentInParent<Knife>().isItInFruit)
-            {
-                AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToKnifeSound);
-                if (GameManager.instance != null)
-                {
-                    GameManager.instance.Lose();
-                }
-            }
-        }
-
-        else if (collision.tag == "Worm")
-        {
-            AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToWormSound);
-            if (GameManager.instance != null)
-            {
-                GameManager.instance.IncrementScore();
-            }
-        }
-
-        else if(collision.tag == "Rock")
-        {
-            PinRemain.SetActive(false);
-            KnifeH1.SetActive(true);
-            KnifeH2.SetActive(true);
-            AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToRockSound);
-            KnifeH1.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40, 40), Random.Range(-40, 40)));
-            KnifeH2.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40, 40), Random.Range(-40, 40)));
-            KnifeH1.GetComponent<Rigidbody2D>().MoveRotation(Mathf.LerpAngle(KnifeH1.GetComponent<Rigidbody2D>().rotation, (Random.Range(-180, 180)), 5 * Time.deltaTime));
-            KnifeH2.GetComponent<Rigidbody2D>().MoveRotation(Mathf.LerpAngle(KnifeH2.GetComponent<Rigidbody2D>().rotation, (Random.Range(-180, 180)), 5 * Time.deltaTime));
-            GameManager.instance.DecrementScore();
-            GameManager.instance.IncrementRemainedKnifes();
-            SetParentToNull();
-            Destroy(gameObject, 2f);
         }
     }
 

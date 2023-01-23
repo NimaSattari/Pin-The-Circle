@@ -9,6 +9,15 @@ EditorBuildSettings:
     path: Assets/Scenes/0 Main Menu.unity
     guid: 6efc1c9ac4e252345a6bcbfdfb203961
   - enabled: 1
-    path: Assets/Scenes/-1 New Game.unity
-    guid: 2c5095f2cbe13dd48a5449631f4d19c5
+    path: Assets/Scenes/1 Classic 1.unity
+    guid: ebc21aa6064eaca4cb88448d23d752d3
+  - enabled: 1
+    path: Assets/Scenes/1 Classic 2.unity
+    guid: 29ea2edecb91d194d907f1779b8f68df
+  - enabled: 1
+    path: Assets/Scenes/2 Time.unity
+    guid: 5c272699a09849d42b9849365c541189
+  - enabled: 1
+    path: Assets/Scenes/3 Fruit Attack.unity
+    guid: d8c925409fdb4c94fb94ae4106516e96
   m_configObjects: {}

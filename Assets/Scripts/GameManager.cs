@@ -1,9 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using DG.Tweening;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,17 +19,13 @@ public class GameManager : MonoBehaviour
     #endregion
 
     [Header("Set In Inspector")] 
-    [SerializeField] TextMeshProUGUI knifeText;
-    [SerializeField] TextMeshProUGUI scoreText;
-    [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] GameObject pinsParentGameObject;
     [SerializeField] GameObject fruitParentGameObject;
     [SerializeField] GameObject pinPrefab;
-    [SerializeField] Button shooterButton;
     [SerializeField] GameObject[] fruitPrefabs;
 
     [Header("Level Related")]
-    [SerializeField] LevelAsset levelAsset;
+    public LevelAsset levelAsset;
     [SerializeField] int level;
     [SerializeField] int howManyFruits;
     [Range(0, 7)]
@@ -51,6 +46,7 @@ public class GameManager : MonoBehaviour
     int[] numbers = { 3, 5, 7, 10 };
     int allMoney;
     int remainedKnifes;
+    int remainedFruits;
     int thisRoundScore;
     int LevelPassed;
     int whichFruitNow;
@@ -58,9 +54,10 @@ public class GameManager : MonoBehaviour
     int howManyKnifesInGame;
     bool canShootFruitChange, canShootShake;
 
-    private void Start()
+    public void StartLevel()
     {
         allMoney = PlayerPrefs.GetInt("Money", allMoney);
+        instance = this;
         CreateFruits();
     }
 
@@ -74,8 +71,6 @@ public class GameManager : MonoBehaviour
         rangeOfSpeedsTop = levelAsset.rangeOfSpeedsTop;
         rangeOfFruitRotateTimerBottom = levelAsset.rangeOfFruitRotateTimerBottom;
         rangeOfFruitRotateTimerTop = levelAsset.rangeOfFruitRotateTimerTop;
-
-        levelText.text = "Level: " + level.ToString();
 
         for (int i = 0; i < howManyFruits; i++)
         {
@@ -92,6 +87,8 @@ public class GameManager : MonoBehaviour
 
             howManyKnifesInGame += howManyKnifesForThisFruit;
         }
+        remainedFruits = howManyFruits;
+        StartCoroutine(UIManager.instance.SetFruitText(remainedFruits, Color.green));
         fruitsList[0].SetActive(true);
         CreatePins();
     }
@@ -104,20 +101,20 @@ public class GameManager : MonoBehaviour
             knifesList.Add(pinInstant);
         }
         remainedKnifes = howManyKnifesInGame;
-        knifeText.text = remainedKnifes.ToString() + "/" + howManyKnifesInGame;
-        shooterButton.onClick.AddListener(() => ShootPin());
         StartCoroutine(LetShootFruitChangeIn(1f));
         StartCoroutine(LetShootShakeIn(0.25f));
+        UIManager.instance.SetKnifeText(remainedKnifes, howManyKnifesInGame, Color.white);
+        UIManager.instance.SetLevelText(level.ToString());
+        UIManager.instance.shooterButton.onClick.AddListener(() => ShootPin());
     }
-
 
     public void DecrementRemainedKnifes()
     {
         knifesList.Remove(knifesList[0]);
         remainedKnifes--;
 
-        knifeText.text = remainedKnifes.ToString() + "/" + howManyKnifesInGame;
-        StartCoroutine(ChangeColor(knifeText, 0.25f, Color.green, Color.white));
+        UIManager.instance.SetKnifeText(remainedKnifes, howManyKnifesInGame, Color.green);
+
     }
 
     public void IncrementRemainedKnifes()
@@ -126,22 +123,19 @@ public class GameManager : MonoBehaviour
         GameObject pinInstant = Instantiate(pinPrefab, pinsParentGameObject.transform.position, Quaternion.identity, pinsParentGameObject.transform);
         knifesList.Add(pinInstant);
 
-        knifeText.text = remainedKnifes.ToString() + "/" + howManyKnifesInGame;
-        StartCoroutine(ChangeColor(knifeText, 0.25f, Color.red, Color.white));
+        UIManager.instance.SetKnifeText(remainedKnifes, howManyKnifesInGame, Color.red);
     }
 
     public void IncrementScore()
     {
         thisRoundScore++;
-        scoreText.text = thisRoundScore.ToString();
-        StartCoroutine(ChangeColor(scoreText, 0.25f, Color.green, Color.white));
+        UIManager.instance.SetScoreText(thisRoundScore, Color.green);
     }
 
     public void DecrementScore()
     {
         thisRoundScore--;
-        scoreText.text = thisRoundScore.ToString();
-        StartCoroutine(ChangeColor(scoreText, 0.25f, Color.red, Color.white));
+        UIManager.instance.SetScoreText(thisRoundScore, Color.green);
     }
 
     public void SaveScore()
@@ -169,7 +163,9 @@ public class GameManager : MonoBehaviour
         yield return new WaitForSeconds(0.25f);
         fruitsList[whichFruitNow].SetActive(false);
         whichFruitNow++;
-        if(whichFruitNow < howManyFruits)
+        remainedFruits--;
+        StartCoroutine(UIManager.instance.SetFruitText(remainedFruits, Color.green));
+        if (whichFruitNow < howManyFruits)
         {
             fruitsList[whichFruitNow].SetActive(true);
         }
@@ -177,18 +173,18 @@ public class GameManager : MonoBehaviour
 
     public IEnumerator WaitIfLoseInShootPin()
     {
-        shooterButton.onClick.RemoveAllListeners();
+        UIManager.instance.shooterButton.onClick.RemoveAllListeners();
         yield return new WaitForSeconds(0.5f);
         if (!isLose)
         {
             AudioManager.instance.PlayOnShot(AudioManager.instance.winSound);
             LevelPassed = PlayerPrefs.GetInt("LevelPass", LevelPassed);
+            SaveScore();
             UIManager.instance.LoadWinPanel();
             if (level >= LevelPassed)
             {
                 LevelPassed = level;
                 PlayerPrefs.SetInt("LevelPass", LevelPassed);
-                SaveScore();
             }
         }
     }
@@ -212,12 +208,5 @@ public class GameManager : MonoBehaviour
         isLose = true;
         UIManager.instance.LoadLosePanel();
         AudioManager.instance.PlayOnShot(AudioManager.instance.loseSound);
-    }
-
-    private IEnumerator ChangeColor(TextMeshProUGUI text, float timerr, Color firstColor, Color secondColor)
-    {
-        text.DOColor(firstColor, timerr);
-        yield return new WaitForSeconds(timerr);
-        text.DOColor(secondColor, timerr);
     }
 }

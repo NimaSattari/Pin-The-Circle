@@ -23,7 +23,8 @@ public class AudioManager : MonoBehaviour
     }
     #endregion
 
-    public AudioClip winSound, loseSound, knifeToFruitSound, knifeToKnifeSound, knifeToRockSound, knifeToWormSound, uISound;
+    public AudioClip winSound, loseSound, knifeToFruitSound, knifeToKnifeSound, knifeToRockSound, knifeToWormSound;
+    public AudioClip[] uISounds;
 
     [SerializeField] AudioSource audioSource;
 
