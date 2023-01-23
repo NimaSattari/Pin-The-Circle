@@ -58,14 +58,20 @@ public class UIManager : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void ResetGame()
+    public void ResetGameClassic()
     {
         AudioManager.instance.PlayOnShot(AudioManager.instance.uISounds[Random.Range(0, AudioManager.instance.uISounds.Length)]);
         Time.timeScale = 1;
 
-        GameGeneral.instance.SetGameManager(allLevelsAsset.allLevels[GameManager.instance.levelAsset.level - 1]);
+        GameGeneral.instance.SetGameManager(allLevelsAsset.allLevels[GameManagerClassic._instance.levelAsset.level - 1]);
     }
+    public void ResetGameEndless()
+    {
+        AudioManager.instance.PlayOnShot(AudioManager.instance.uISounds[Random.Range(0, AudioManager.instance.uISounds.Length)]);
+        Time.timeScale = 1;
 
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
     public void LoadMainMenu()
     {
         AudioManager.instance.PlayOnShot(AudioManager.instance.uISounds[Random.Range(0, AudioManager.instance.uISounds.Length)]);
@@ -73,12 +79,12 @@ public class UIManager : MonoBehaviour
         SceneManager.LoadScene(0);
     }
 
-    public void LoadNextLevel()
+    public void LoadNextLevelClassic()
     {
         AudioManager.instance.PlayOnShot(AudioManager.instance.uISounds[Random.Range(0, AudioManager.instance.uISounds.Length)]);
         Time.timeScale = 1;
 
-        GameGeneral.instance.SetGameManager(allLevelsAsset.allLevels[GameManager.instance.levelAsset.level]);
+        GameGeneral.instance.SetGameManager(allLevelsAsset.allLevels[GameManagerClassic._instance.levelAsset.level]);
     }
 
     private IEnumerator ChangeColor(TextMeshProUGUI text, float timerr, Color firstColor, Color secondColor)

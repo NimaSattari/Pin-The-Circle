@@ -26,8 +26,14 @@ public class MainMenuManager : MonoBehaviour
 
     private void Start()
     {
-        levelPassed = PlayerPrefs.GetInt("LevelPass", levelPassed);
-        allMoney = PlayerPrefs.GetInt("Money", allMoney);
+        StartCoroutine(Init());
+    }
+
+    private IEnumerator Init()
+    {
+        yield return new WaitForSeconds(0.5f);
+        levelPassed = SaveSystem.instance._whichLevel;
+        allMoney = SaveSystem.instance._money;
         print(levelPassed);
         print(allMoney);
     }
@@ -73,5 +79,17 @@ public class MainMenuManager : MonoBehaviour
     {
         AudioManager.instance.PlayOnShot(AudioManager.instance.uISounds[Random.Range(0, AudioManager.instance.uISounds.Length)]);
         GameGeneral.instance.SetGameManager(levelAsset);
+    }
+
+    public void PlayLatestLevel()
+    {
+        AudioManager.instance.PlayOnShot(AudioManager.instance.uISounds[Random.Range(0, AudioManager.instance.uISounds.Length)]);
+        GameGeneral.instance.SetGameManager(allLevelsAsset.allLevels[levelPassed]);
+    }
+
+    public void PlayEndless()
+    {
+        AudioManager.instance.PlayOnShot(AudioManager.instance.uISounds[Random.Range(0, AudioManager.instance.uISounds.Length)]);
+        SceneManager.LoadScene(3);
     }
 }

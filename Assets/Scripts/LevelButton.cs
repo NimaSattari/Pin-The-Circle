@@ -8,14 +8,15 @@ public class LevelButton : MonoBehaviour
     public Text levelText;
     public GameObject LockImage;
     public LevelAsset levelAsset;
+    public GameObject[] starsImages;
 
     int LevelPassed;
     int scorePassed;
 
     private void Start()
     {
-        LevelPassed = PlayerPrefs.GetInt("LevelPass", LevelPassed);
-        scorePassed = PlayerPrefs.GetInt("scorePassed", scorePassed);
+        LevelPassed = SaveSystem.instance._whichLevel;
+        scorePassed = SaveSystem.instance._levelStars[levelAsset.level - 1];
         levelText.text = levelAsset.level.ToString();
 
         if (levelAsset.level > LevelPassed + 1)
@@ -25,6 +26,10 @@ public class LevelButton : MonoBehaviour
         }
         else
         {
+            for (int i = 0; i < scorePassed; i++)
+            {
+                starsImages[i].SetActive(true);
+            }
             LockImage.SetActive(false);
             GetComponent<Button>().onClick.AddListener(() => MainMenuManager.instance.PlayLevel(levelAsset));
         }

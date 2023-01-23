@@ -24,16 +24,16 @@ public class GameGeneral : MonoBehaviour
     }
     #endregion
 
-    [SerializeField] GameManager gameManagerPrefab;
+    [SerializeField] GameManagerClassic gameManagerPrefab;
 
     public void SetGameManager(LevelAsset levelAsset)
     {
         if(SceneManager.GetActiveScene().buildIndex == 1 || SceneManager.GetActiveScene().buildIndex == 2)
         {
-            Destroy(GameManager.instance.gameObject);
+            Destroy(GameManagerClassic.instance.gameObject);
             Destroy(UIManager.instance.gameObject);
         }
-        GameManager gameManager = Instantiate(gameManagerPrefab);
+        GameManagerClassic gameManager = Instantiate(gameManagerPrefab);
         gameManager.levelAsset = levelAsset;
         if (SceneManager.GetActiveScene().buildIndex == 1)
         {
@@ -46,7 +46,7 @@ public class GameGeneral : MonoBehaviour
         //StartCoroutine(LoadYourAsyncScene(1, gameManager));
     }
 
-    IEnumerator LoadYourAsyncScene(int newSceneName, GameManager gameManager)
+    IEnumerator LoadYourAsyncScene(int newSceneName, GameManagerClassic gameManager)
     {
         // Set the current Scene to be able to unload it later
         Scene currentScene = SceneManager.GetActiveScene();

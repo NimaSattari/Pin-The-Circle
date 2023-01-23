@@ -61,56 +61,58 @@
     <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\Knife.cs" />
     <Compile Include="Assets\Scripts\GameGeneral.cs" />
-    <Compile Include="Assets\DOTween Examples\Sequences.cs" />
+    <Compile Include="Assets\Imported Assets\DOTween Examples\Sequences.cs" />
     <Compile Include="Assets\Scripts\AllLevelsAsset.cs" />
     <Compile Include="Assets\Scripts\MainMenuManager.cs" />
     <Compile Include="Assets\Scripts\Worm.cs" />
-    <Compile Include="Assets\DOTween Examples\Follow.cs" />
+    <Compile Include="Assets\Imported Assets\DOTween Examples\Follow.cs" />
     <Compile Include="Assets\Scripts\Rock.cs" />
-    <Compile Include="Assets\DOTween Examples\Basics.cs" />
-    <Compile Include="Assets\DOTween Examples\UGUI.cs" />
+    <Compile Include="Assets\Imported Assets\DOTween Examples\Basics.cs" />
+    <Compile Include="Assets\Imported Assets\DOTween Examples\UGUI.cs" />
     <Compile Include="Assets\Scripts\Tutorial.cs" />
     <Compile Include="Assets\Scripts\FruitCollision.cs" />
     <Compile Include="Assets\Scripts\LevelButton.cs" />
     <Compile Include="Assets\Scripts\Tutorial1.cs" />
     <Compile Include="Assets\Scripts\LevelAsset.cs" />
-    <Compile Include="Assets\DOTween Examples\Example Assets\DragTarget.cs" />
-    <Compile Include="Assets\DOTween Examples\Paths.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Imported Assets\DOTween Examples\Example Assets\DragTarget.cs" />
+    <Compile Include="Assets\Imported Assets\DOTween Examples\Paths.cs" />
+    <Compile Include="Assets\Scripts\GameManagerClassic.cs" />
     <Compile Include="Assets\Scripts\CircleRotator.cs" />
-    <Compile Include="Assets\DOTween Examples\Materials.cs" />
+    <Compile Include="Assets\Imported Assets\DOTween Examples\Materials.cs" />
     <Compile Include="Assets\Scripts\SaveSystem.cs" />
+    <Compile Include="Assets\Scripts\GameManagerEndless.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Overlay.shader" />
-    <None Include="Assets\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR Particle Glow.shader" />
-    <None Include="Assets\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR Particle Ubershader.shader" />
-    <None Include="Assets\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR_SETTINGS.cginc" />
+    <None Include="Assets\Imported Assets\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR Particle Glow.shader" />
+    <None Include="Assets\Imported Assets\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR Particle Ubershader.shader" />
+    <None Include="Assets\Imported Assets\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR_SETTINGS.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap.shader" />
-    <None Include="Assets\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR.cginc" />
+    <None Include="Assets\Imported Assets\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Mobile.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF SSD.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface-Mobile.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Surface.shader" />
     <None Include="Assets\TextMesh Pro\Sprites\EmojiOne Attribution.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Custom-Atlas.shader" />
-    <None Include="Assets\JMO Assets\Cartoon FX Remaster\Readme Cartoon FX Remaster FREE.txt" />
+    <None Include="Assets\Imported Assets\JMO Assets\Cartoon FX Remaster\Readme Cartoon FX Remaster FREE.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile SSD.shader" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Leading Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Properties.cginc" />
     <None Include="Assets\TextMesh Pro\Shaders\TMPro_Surface.cginc" />
-    <None Include="Assets\JMO Assets\Cartoon FX Remaster\CFXR Prefabs\Texts\_Make your own text effect.txt" />
+    <None Include="Assets\Imported Assets\JMO Assets\Cartoon FX Remaster\CFXR Prefabs\Texts\_Make your own text effect.txt" />
     <None Include="Assets\TextMesh Pro\Resources\LineBreaking Following Characters.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile Masking.shader" />
-    <None Include="Assets\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR Particle Procedural Ring.shader" />
+    <None Include="Assets\Imported Assets\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR Particle Procedural Ring.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF Overlay.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Bitmap-Mobile.shader" />
-    <None Include="Assets\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR_URP.cginc" />
+    <None Include="Assets\Imported Assets\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR_URP.cginc" />
     <None Include="Assets\TextMesh Pro\Fonts\LiberationSans - OFL.txt" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_SDF-Mobile.shader" />
-    <None Include="Assets\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR Particle Distortion.shader" />
+    <None Include="Assets\Imported Assets\JMO Assets\Cartoon FX Remaster\CFXR Assets\Shaders\CFXR Particle Distortion.shader" />
     <None Include="Assets\TextMesh Pro\Shaders\TMP_Sprite.shader" />
   </ItemGroup>
   <ItemGroup>
@@ -873,25 +875,25 @@
       <Project>{AA53370E-A314-A396-0DBE-17865FEA113A}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
-    <ProjectReference Include="ToonyColorsPro.Demo.Editor.csproj">
-      <Project>{C3565EEA-6BC4-CB4E-658B-51DB1EB8374E}</Project>
-      <Name>ToonyColorsPro.Demo.Editor</Name>
-    </ProjectReference>
-    <ProjectReference Include="KinoBloom.Runtime.csproj">
-      <Project>{3A293084-F2C6-0CEE-48F5-405D11AF9B4F}</Project>
-      <Name>KinoBloom.Runtime</Name>
+    <ProjectReference Include="CFXRRuntime.csproj">
+      <Project>{A21343C3-08E5-218A-BC78-B45A231BA2F8}</Project>
+      <Name>CFXRRuntime</Name>
     </ProjectReference>
     <ProjectReference Include="CFXREditor.csproj">
       <Project>{73C591F4-59EA-FF0D-686D-292EEC353503}</Project>
       <Name>CFXREditor</Name>
     </ProjectReference>
+    <ProjectReference Include="ToonyColorsPro.Demo.Editor.csproj">
+      <Project>{C3565EEA-6BC4-CB4E-658B-51DB1EB8374E}</Project>
+      <Name>ToonyColorsPro.Demo.Editor</Name>
+    </ProjectReference>
     <ProjectReference Include="CFXRDemo.csproj">
       <Project>{92A81E49-A150-29F3-1FF7-7DBCC3C05B20}</Project>
       <Name>CFXRDemo</Name>
     </ProjectReference>
-    <ProjectReference Include="CFXRRuntime.csproj">
-      <Project>{A21343C3-08E5-218A-BC78-B45A231BA2F8}</Project>
-      <Name>CFXRRuntime</Name>
+    <ProjectReference Include="KinoBloom.Runtime.csproj">
+      <Project>{3A293084-F2C6-0CEE-48F5-405D11AF9B4F}</Project>
+      <Name>KinoBloom.Runtime</Name>
     </ProjectReference>
     <ProjectReference Include="ToolBox.Serialization.OdinSerializer.csproj">
       <Project>{51849FD6-20E9-7F09-4FDE-03DFA4AFC294}</Project>

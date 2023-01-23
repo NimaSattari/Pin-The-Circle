@@ -4854,8 +4854,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.75
-      minScalar: 1.25
+      scalar: 1.25
+      minScalar: 0.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -9754,8 +9754,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.75
-      minScalar: 1.25
+      scalar: 1.25
+      minScalar: 0.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -14663,8 +14663,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 3
-      minScalar: 2.5
+      scalar: 1.5
+      minScalar: 0.5
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -24553,8 +24553,8 @@ Light:
   m_Type: 2
   m_Shape: 0
   m_Color: {r: 0.559, g: 0.17468749, b: 0.05240625, a: 1}
-  m_Intensity: 1.8555243
-  m_Range: 6.400847
+  m_Intensity: 0
+  m_Range: 4
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
@@ -24719,8 +24719,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.75
-      minScalar: 1.25
+      scalar: 1.25
+      minScalar: 0.25
       maxCurve:
         serializedVersion: 2
         m_Curve:
@@ -29619,8 +29619,8 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 3
-      scalar: 1.75
-      minScalar: 1.25
+      scalar: 1.25
+      minScalar: 0.25
       maxCurve:
         serializedVersion: 2
         m_Curve:

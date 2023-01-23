@@ -69,8 +69,10 @@ public class Knife : MonoBehaviour
             KnifeH2.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-40, 40), Random.Range(-40, 40)));
             KnifeH1.GetComponent<Rigidbody2D>().MoveRotation(Mathf.LerpAngle(KnifeH1.GetComponent<Rigidbody2D>().rotation, (Random.Range(-180, 180)), 5 * Time.deltaTime));
             KnifeH2.GetComponent<Rigidbody2D>().MoveRotation(Mathf.LerpAngle(KnifeH2.GetComponent<Rigidbody2D>().rotation, (Random.Range(-180, 180)), 5 * Time.deltaTime));
-            GameManager.instance.DecrementScore();
-            GameManager.instance.IncrementRemainedKnifes();
+            if (GameManager.instance != null)
+            {
+                GameManager.instance.HandleKnifeToRock();
+            }
             SetParentToNull();
             Destroy(gameObject, 2f);
         }
@@ -81,7 +83,7 @@ public class Knife : MonoBehaviour
                 AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToKnifeSound);
                 if (GameManager.instance != null)
                 {
-                    GameManager.instance.Lose();
+                    GameManager.instance.HandleKnifeToKnife();
                 }
             }
         }
@@ -90,7 +92,7 @@ public class Knife : MonoBehaviour
             AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToWormSound);
             if (GameManager.instance != null)
             {
-                GameManager.instance.IncrementScore();
+                GameManager.instance.HandleKnifeToWorm();
             }
         }
         else if (collision.tag == "Fruit")
@@ -106,7 +108,7 @@ public class Knife : MonoBehaviour
             StartCoroutine(collision.GetComponentInParent<CircleRotator>().Shake());
             if (GameManager.instance != null)
             {
-                GameManager.instance.IncrementScore();
+                GameManager.instance.HandleKnifeToFruit();
             }
         }
     }
