@@ -56,33 +56,33 @@
     <Analyzer Include="D:\Program Files\Microsoft Visual Studio\Community\Common7\IDE\Extensions\Microsoft\Visual Studio Tools for Unity\Analyzers\Microsoft.Unity.Analyzers.dll" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Assets\Scripts\UIManager.cs" />
-    <Compile Include="Assets\Scripts\DoTweenActions.cs" />
-    <Compile Include="Assets\Scripts\AudioManager.cs" />
+    <Compile Include="Assets\Scripts\SaveSystem.cs" />
     <Compile Include="Assets\Scripts\Knife.cs" />
     <Compile Include="Assets\Scripts\GameGeneral.cs" />
     <Compile Include="Assets\Imported Assets\DOTween Examples\Sequences.cs" />
-    <Compile Include="Assets\Scripts\AllLevelsAsset.cs" />
     <Compile Include="Assets\Scripts\MainMenuManager.cs" />
-    <Compile Include="Assets\Scripts\Worm.cs" />
-    <Compile Include="Assets\Imported Assets\DOTween Examples\Follow.cs" />
-    <Compile Include="Assets\Scripts\Rock.cs" />
-    <Compile Include="Assets\Imported Assets\DOTween Examples\Basics.cs" />
     <Compile Include="Assets\Imported Assets\DOTween Examples\UGUI.cs" />
-    <Compile Include="Assets\Scripts\Tutorial.cs" />
     <Compile Include="Assets\Scripts\FruitCollision.cs" />
-    <Compile Include="Assets\Scripts\LevelButton.cs" />
-    <Compile Include="Assets\Scripts\Tutorial1.cs" />
     <Compile Include="Assets\Scripts\LevelAsset.cs" />
     <Compile Include="Assets\Imported Assets\DOTween Examples\Example Assets\DragTarget.cs" />
     <Compile Include="Assets\Imported Assets\DOTween Examples\Paths.cs" />
     <Compile Include="Assets\Scripts\GameManagerClassic.cs" />
     <Compile Include="Assets\Scripts\CircleRotator.cs" />
-    <Compile Include="Assets\Imported Assets\DOTween Examples\Materials.cs" />
-    <Compile Include="Assets\Scripts\SaveSystem.cs" />
-    <Compile Include="Assets\Scripts\GameManagerEndless.cs" />
-    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\UIManager.cs" />
+    <Compile Include="Assets\Scripts\DoTweenActions.cs" />
+    <Compile Include="Assets\Scripts\AudioManager.cs" />
     <Compile Include="Assets\Scripts\GameManagerTime.cs" />
+    <Compile Include="Assets\Scripts\AllLevelsAsset.cs" />
+    <Compile Include="Assets\Scripts\Worm.cs" />
+    <Compile Include="Assets\Scripts\GameManagerEndless.cs" />
+    <Compile Include="Assets\Imported Assets\DOTween Examples\Follow.cs" />
+    <Compile Include="Assets\Scripts\Rock.cs" />
+    <Compile Include="Assets\Imported Assets\DOTween Examples\Basics.cs" />
+    <Compile Include="Assets\Scripts\Tutorial.cs" />
+    <Compile Include="Assets\Scripts\LevelButton.cs" />
+    <Compile Include="Assets\Scripts\Tutorial1.cs" />
+    <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Imported Assets\DOTween Examples\Materials.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
@@ -876,33 +876,33 @@
       <Project>{AA53370E-A314-A396-0DBE-17865FEA113A}</Project>
       <Name>Assembly-CSharp-firstpass</Name>
     </ProjectReference>
-    <ProjectReference Include="CFXRRuntime.csproj">
-      <Project>{A21343C3-08E5-218A-BC78-B45A231BA2F8}</Project>
-      <Name>CFXRRuntime</Name>
-    </ProjectReference>
-    <ProjectReference Include="CFXREditor.csproj">
-      <Project>{73C591F4-59EA-FF0D-686D-292EEC353503}</Project>
-      <Name>CFXREditor</Name>
+    <ProjectReference Include="ToolBox.Serialization.OdinSerializer.csproj">
+      <Project>{51849FD6-20E9-7F09-4FDE-03DFA4AFC294}</Project>
+      <Name>ToolBox.Serialization.OdinSerializer</Name>
     </ProjectReference>
     <ProjectReference Include="ToonyColorsPro.Demo.Editor.csproj">
       <Project>{C3565EEA-6BC4-CB4E-658B-51DB1EB8374E}</Project>
       <Name>ToonyColorsPro.Demo.Editor</Name>
     </ProjectReference>
-    <ProjectReference Include="CFXRDemo.csproj">
-      <Project>{92A81E49-A150-29F3-1FF7-7DBCC3C05B20}</Project>
-      <Name>CFXRDemo</Name>
-    </ProjectReference>
     <ProjectReference Include="KinoBloom.Runtime.csproj">
       <Project>{3A293084-F2C6-0CEE-48F5-405D11AF9B4F}</Project>
       <Name>KinoBloom.Runtime</Name>
     </ProjectReference>
-    <ProjectReference Include="ToolBox.Serialization.OdinSerializer.csproj">
-      <Project>{51849FD6-20E9-7F09-4FDE-03DFA4AFC294}</Project>
-      <Name>ToolBox.Serialization.OdinSerializer</Name>
+    <ProjectReference Include="CFXREditor.csproj">
+      <Project>{73C591F4-59EA-FF0D-686D-292EEC353503}</Project>
+      <Name>CFXREditor</Name>
+    </ProjectReference>
+    <ProjectReference Include="CFXRDemo.csproj">
+      <Project>{92A81E49-A150-29F3-1FF7-7DBCC3C05B20}</Project>
+      <Name>CFXRDemo</Name>
     </ProjectReference>
     <ProjectReference Include="com.intothedev.savesystem.csproj">
       <Project>{A8D5FC06-F540-BF86-D4F2-E90CD206A501}</Project>
       <Name>com.intothedev.savesystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="CFXRRuntime.csproj">
+      <Project>{A21343C3-08E5-218A-BC78-B45A231BA2F8}</Project>
+      <Name>CFXRRuntime</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

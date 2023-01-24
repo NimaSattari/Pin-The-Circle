@@ -55,6 +55,8 @@ public class GameManagerTime : GameManager
             UIManager.instance.SetTimeText(timer);
             if (timer < 0)
             {
+                timer = 0;
+                UIManager.instance.SetTimeText(timer);
                 canShootFruitChange = false;
                 Lose();
             }
@@ -88,6 +90,7 @@ public class GameManagerTime : GameManager
         StartCoroutine(LetShootFruitChangeIn(1f));
         StartCoroutine(LetShootShakeIn(0.25f));
         UIManager.instance.shooterButton.onClick.AddListener(() => ShootPin());
+        UIManager.instance.StartGame();
     }
 
     public void DecrementRemainedKnifes()
@@ -167,6 +170,7 @@ public class GameManagerTime : GameManager
         UIManager.instance.shooterButton.onClick.RemoveAllListeners();
         SaveLevel();
         UIManager.instance.LoadLosePanel();
+        UIManager.instance.WinPanelActive(0, thisRoundScore, 0);
         AudioManager.instance.PlayOnShot(AudioManager.instance.loseSound);
     }
 

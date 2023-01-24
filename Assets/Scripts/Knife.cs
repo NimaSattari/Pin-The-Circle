@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 
 public class Knife : MonoBehaviour
 {
     [SerializeField] GameObject PinRemain;
     [SerializeField] GameObject KnifeH1;
     [SerializeField] GameObject KnifeH2;
-    [SerializeField] GameObject[] particles;
+    [SerializeField] GameObject[] fruitParticles;
+    [SerializeField] GameObject knifeToKnifeParticle;
     [SerializeField] float speed = 10f;
     [SerializeField] float angle;
     [SerializeField] bool CrossBow;
@@ -17,6 +19,7 @@ public class Knife : MonoBehaviour
     float RotateSpeed = 2f;
     Quaternion qStart, qEnd;
     Rigidbody2D Rigid;
+    SpriteRenderer mySpriteRenderer;
 
     private void Awake()
     {
@@ -28,6 +31,8 @@ public class Knife : MonoBehaviour
     private void Initialize()
     {
         Rigid = GetComponent<Rigidbody2D>();
+        mySpriteRenderer = GetComponentInChildren<SpriteRenderer>();
+
     }
 
     void FixedUpdate()
@@ -78,9 +83,14 @@ public class Knife : MonoBehaviour
         }
         else if (collision.tag == "Pin Head")
         {
-            if (collision.GetComponentInParent<Knife>().isItInFruit)
+            Knife otherKnife = collision.GetComponentInParent<Knife>();
+            if (otherKnife.isItInFruit)
             {
                 AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToKnifeSound);
+                StartCoroutine(ChangeColor(0.5f, Color.red, Color.white));
+                StartCoroutine(otherKnife.ChangeColor(0.5f, Color.red, Color.white));
+                GameObject paricle = Instantiate(knifeToKnifeParticle, transform.position, Quaternion.identity, this.transform);
+                Destroy(paricle, 2f);
                 if (GameManager.instance != null)
                 {
                     GameManager.instance.HandleKnifeToKnife();
@@ -101,7 +111,7 @@ public class Knife : MonoBehaviour
             Rigid.isKinematic = false;
             Rigid.bodyType = RigidbodyType2D.Static;
             isItInFruit = true;
-            GameObject paricle = Instantiate(particles[Random.Range(0, particles.Length)], transform.position, Quaternion.identity);
+            GameObject paricle = Instantiate(fruitParticles[Random.Range(0, fruitParticles.Length)], transform.position, Quaternion.identity, this.transform);
             Destroy(paricle, 2f);
             AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToFruitSound);
             transform.SetParent(collision.transform);
@@ -117,5 +127,12 @@ public class Knife : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         transform.parent = null;
+    }
+
+    private IEnumerator ChangeColor(float timerr, Color firstColor, Color secondColor)
+    {
+        mySpriteRenderer.DOColor(firstColor, timerr);
+        yield return new WaitForSeconds(timerr);
+        mySpriteRenderer.DOColor(secondColor, timerr);
     }
 }

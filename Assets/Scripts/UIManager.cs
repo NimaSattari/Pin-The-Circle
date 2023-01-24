@@ -23,7 +23,7 @@ public class UIManager : MonoBehaviour
     [SerializeField] GameObject loseUIPanel;
     [SerializeField] GameObject winUIPanel;
     [SerializeField] GameObject pauseUIPanel;
-    [SerializeField] GameObject pauseButton;
+    [SerializeField] GameObject duringGameUI;
 
     [SerializeField] TextMeshProUGUI knifeText;
     [SerializeField] TextMeshProUGUI scoreText;
@@ -31,18 +31,28 @@ public class UIManager : MonoBehaviour
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] AllLevelsAsset allLevelsAsset;
+
+    [SerializeField] TextMeshProUGUI scoreAnimationText;
+    [SerializeField] TextMeshProUGUI fruitAnimationText;
+    [SerializeField] TextMeshProUGUI knifeAnimationText;
+    [SerializeField] TextMeshProUGUI timeAnimationText;
+
+    [SerializeField] TextMeshProUGUI winLevelText;
+    [SerializeField] TextMeshProUGUI winCoinText;
+    [SerializeField] GameObject[] winStars;
+
     public Button shooterButton;
 
     public void LoadWinPanel()
     {
         winUIPanel.SetActive(true);
-        pauseButton.SetActive(false);
+        duringGameUI.SetActive(false);
     }
 
     public void LoadLosePanel()
     {
         loseUIPanel.SetActive(true);
-        pauseButton.SetActive(false);
+        duringGameUI.SetActive(false);
     }
 
     public void Pause()
@@ -66,6 +76,7 @@ public class UIManager : MonoBehaviour
 
         GameGeneral.instance.SetGameManager(allLevelsAsset.allLevels[GameManagerClassic._instance.levelAsset.level - 1]);
     }
+
     public void ResetGameEndless()
     {
         AudioManager.instance.PlayOnShot(AudioManager.instance.uISounds[Random.Range(0, AudioManager.instance.uISounds.Length)]);
@@ -73,6 +84,7 @@ public class UIManager : MonoBehaviour
 
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
     public void LoadMainMenu()
     {
         AudioManager.instance.PlayOnShot(AudioManager.instance.uISounds[Random.Range(0, AudioManager.instance.uISounds.Length)]);
@@ -128,10 +140,33 @@ public class UIManager : MonoBehaviour
     {
         timeText.text = timer.ToString("0");
     }
+
     public void SetTimeTextWithColor(float timer, Color color)
     {
         timeText.text = timer.ToString("0");
         StartCoroutine(timeText.GetComponent<DoTweenActions>().OneLoop());
         StartCoroutine(ChangeColor(timeText, 0.25f, color, Color.white));
+    }
+
+    public void StartGame()
+    {
+        levelText.GetComponent<DoTweenActions>().DoAnimation();
+        scoreAnimationText.GetComponent<DoTweenActions>().DoAnimation();
+        fruitAnimationText.GetComponent<DoTweenActions>().DoAnimation();
+        knifeAnimationText.GetComponent<DoTweenActions>().DoAnimation();
+        if(timeAnimationText != null)
+        {
+            timeAnimationText.GetComponent<DoTweenActions>().DoAnimation();
+        }
+    }
+
+    public void WinPanelActive(int level, int coin, int star)
+    {
+        winLevelText.text = "Level: " + level;
+        winCoinText.text = coin.ToString();
+        for (int i = 0; i < star; i++)
+        {
+            winStars[i].SetActive(true);
+        }
     }
 }

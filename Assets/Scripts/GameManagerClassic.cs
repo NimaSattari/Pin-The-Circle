@@ -54,6 +54,7 @@ public class GameManagerClassic : GameManager
     int howManyKnifesInGame;
     bool canShootFruitChange, canShootShake;
     int missedShots;
+    int howManyStars = 0;
 
     public void StartLevel()
     {
@@ -89,7 +90,6 @@ public class GameManagerClassic : GameManager
             howManyKnifesInGame += howManyKnifesForThisFruit;
         }
         remainedFruits = howManyFruits;
-        StartCoroutine(UIManager.instance.SetFruitText(remainedFruits, Color.green));
         fruitsList[0].SetActive(true);
         CreatePins();
     }
@@ -105,8 +105,10 @@ public class GameManagerClassic : GameManager
         StartCoroutine(LetShootFruitChangeIn(1f));
         StartCoroutine(LetShootShakeIn(0.25f));
         UIManager.instance.SetKnifeText(remainedKnifes, howManyKnifesInGame, Color.white);
+        StartCoroutine(UIManager.instance.SetFruitText(remainedFruits, Color.green));
         UIManager.instance.SetLevelText(level.ToString());
         UIManager.instance.shooterButton.onClick.AddListener(() => ShootPin());
+        UIManager.instance.StartGame();
     }
 
     public void DecrementRemainedKnifes()
@@ -150,7 +152,6 @@ public class GameManagerClassic : GameManager
             LevelPassed = level;
             SaveSystem.instance._whichLevel = LevelPassed;
         }
-        int howManyStars = 0;
         if(missedShots <= 3)
         {
             howManyStars = 3;
@@ -207,6 +208,7 @@ public class GameManagerClassic : GameManager
             AudioManager.instance.PlayOnShot(AudioManager.instance.winSound);
             SaveLevel();
             UIManager.instance.LoadWinPanel();
+            UIManager.instance.WinPanelActive(level, thisRoundScore, howManyStars);
         }
     }
 

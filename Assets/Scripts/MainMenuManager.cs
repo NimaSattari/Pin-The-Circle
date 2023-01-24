@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -21,6 +22,7 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField] GameObject mainUI2;
     [SerializeField] GameObject classicLevelUI;
     [SerializeField] AllLevelsAsset allLevelsAsset;
+    [SerializeField] TextMeshProUGUI moneyText;
     int levelPassed;
     int allMoney;
 
@@ -34,8 +36,7 @@ public class MainMenuManager : MonoBehaviour
         yield return new WaitForSeconds(0.5f);
         levelPassed = SaveSystem.instance._whichLevel;
         allMoney = SaveSystem.instance._money;
-        print(levelPassed);
-        print(allMoney);
+        moneyText.text = allMoney.ToString();
     }
 
     public void MenuUI2Load()
@@ -84,7 +85,14 @@ public class MainMenuManager : MonoBehaviour
     public void PlayLatestLevel()
     {
         AudioManager.instance.PlayOnShot(AudioManager.instance.uISounds[Random.Range(0, AudioManager.instance.uISounds.Length)]);
-        GameGeneral.instance.SetGameManager(allLevelsAsset.allLevels[levelPassed]);
+        if(levelPassed < allLevelsAsset.allLevels.Length)
+        {
+            GameGeneral.instance.SetGameManager(allLevelsAsset.allLevels[levelPassed]);
+        }
+        else
+        {
+            GameGeneral.instance.SetGameManager(allLevelsAsset.allLevels[levelPassed - 1]);
+        }
     }
 
     public void PlayEndless()

@@ -68,6 +68,7 @@ public class GameManagerEndless : GameManager
         StartCoroutine(LetShootFruitChangeIn(1f));
         StartCoroutine(LetShootShakeIn(0.25f));
         UIManager.instance.shooterButton.onClick.AddListener(() => ShootPin());
+        UIManager.instance.StartGame();
     }
 
     public void DecrementRemainedKnifes()
@@ -145,6 +146,7 @@ public class GameManagerEndless : GameManager
         UIManager.instance.shooterButton.onClick.RemoveAllListeners();
         SaveLevel();
         UIManager.instance.LoadLosePanel();
+        UIManager.instance.WinPanelActive(0, thisRoundScore, 0);
         AudioManager.instance.PlayOnShot(AudioManager.instance.loseSound);
     }
 
