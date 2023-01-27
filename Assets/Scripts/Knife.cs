@@ -5,61 +5,52 @@ using DG.Tweening;
 
 public class Knife : MonoBehaviour
 {
+    [Header("Set In Inspector")]
     [SerializeField] GameObject PinRemain;
     [SerializeField] GameObject KnifeH1;
     [SerializeField] GameObject KnifeH2;
     [SerializeField] GameObject[] fruitParticles;
     [SerializeField] GameObject knifeToKnifeParticle;
-    [SerializeField] float speed = 10f;
-    [SerializeField] float angle;
-    [SerializeField] bool CrossBow;
+    [SerializeField] Rigidbody2D myRigidbody;
+    [SerializeField] SpriteRenderer mySpriteRenderer;
 
-    bool CanShoot;
+    [Header("Level Related")]
+    [SerializeField] float shootSpeed = 10f;
+    [SerializeField] float rotateAngle = 15f;
+    [SerializeField] float rotateSpeed = 2f;
+    [SerializeField] bool isCrossBow;
+
+    //private
+    bool canShoot;
     bool isItInFruit;
-    float RotateSpeed = 2f;
     Quaternion qStart, qEnd;
-    Rigidbody2D Rigid;
-    SpriteRenderer mySpriteRenderer;
 
     private void Awake()
     {
-        Initialize();
-        qStart = Quaternion.AngleAxis(angle, Vector3.forward);
-        qEnd = Quaternion.AngleAxis(-angle, Vector3.forward);
-    }
-
-    private void Initialize()
-    {
-        Rigid = GetComponent<Rigidbody2D>();
-        mySpriteRenderer = GetComponentInChildren<SpriteRenderer>();
-
+        qStart = Quaternion.AngleAxis(rotateAngle, Vector3.forward);
+        qEnd = Quaternion.AngleAxis(-rotateAngle, Vector3.forward);
     }
 
     void FixedUpdate()
     {
-        if (CanShoot)
+        if (canShoot)
         {
-            Rigid.velocity = (transform.up * speed);
+            myRigidbody.velocity = (transform.up * shootSpeed);
         }
-        if (CrossBow)
+        if (isCrossBow)
         {
-            angle -= Time.deltaTime;
-            if (angle < 0)
-            {
-                angle = 0;
-            }
-            qStart = Quaternion.AngleAxis(angle, Vector3.forward);
-            qEnd = Quaternion.AngleAxis(-angle, Vector3.forward);
-            transform.rotation = Quaternion.Lerp(qStart, qEnd, (Mathf.Sin(Time.time * RotateSpeed) + 1.0f) / 2.0f);
+            qStart = Quaternion.AngleAxis(rotateAngle, Vector3.forward);
+            qEnd = Quaternion.AngleAxis(-rotateAngle, Vector3.forward);
+            transform.rotation = Quaternion.Lerp(qStart, qEnd, (Mathf.Sin(Time.time * rotateSpeed) + 1.0f) / 2.0f);
         }
     }
 
     public void FirePin()
     {
-        CrossBow = false;
-        CanShoot = true;
+        isCrossBow = false;
+        canShoot = true;
         transform.parent = null;
-        Rigid.isKinematic = true;
+        myRigidbody.isKinematic = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
@@ -84,11 +75,25 @@ public class Knife : MonoBehaviour
         else if (collision.tag == "Pin Head")
         {
             Knife otherKnife = collision.GetComponentInParent<Knife>();
-            if (otherKnife.isItInFruit)
+            if(otherKnife != null)
+            {
+                if (otherKnife.isItInFruit)
+                {
+                    AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToKnifeSound);
+                    StartCoroutine(ChangeColor(0.5f, Color.red, Color.white));
+                    StartCoroutine(otherKnife.ChangeColor(0.5f, Color.red, Color.white));
+                    GameObject paricle = Instantiate(knifeToKnifeParticle, transform.position, Quaternion.identity, this.transform);
+                    Destroy(paricle, 2f);
+                    if (GameManager.instance != null)
+                    {
+                        GameManager.instance.HandleKnifeToKnife();
+                    }
+                }
+            }
+            else
             {
                 AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToKnifeSound);
                 StartCoroutine(ChangeColor(0.5f, Color.red, Color.white));
-                StartCoroutine(otherKnife.ChangeColor(0.5f, Color.red, Color.white));
                 GameObject paricle = Instantiate(knifeToKnifeParticle, transform.position, Quaternion.identity, this.transform);
                 Destroy(paricle, 2f);
                 if (GameManager.instance != null)
@@ -107,9 +112,9 @@ public class Knife : MonoBehaviour
         }
         else if (collision.tag == "Fruit")
         {
-            CanShoot = false;
-            Rigid.isKinematic = false;
-            Rigid.bodyType = RigidbodyType2D.Static;
+            canShoot = false;
+            myRigidbody.isKinematic = false;
+            myRigidbody.bodyType = RigidbodyType2D.Static;
             isItInFruit = true;
             GameObject paricle = Instantiate(fruitParticles[Random.Range(0, fruitParticles.Length)], transform.position, Quaternion.identity, this.transform);
             Destroy(paricle, 2f);

@@ -73,7 +73,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 1341a086d094de444b44ecb930b115ed, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -118,7 +118,7 @@ GameObject:
   - component: {fileID: 1880313563374390085}
   - component: {fileID: 4928888583973369001}
   m_Layer: 0
-  m_Name: Knife Rotating
+  m_Name: Knife Rotate
   m_TagString: Pin Head
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -157,11 +157,18 @@ MonoBehaviour:
   PinRemain: {fileID: 8430063357252246555}
   KnifeH1: {fileID: 3205249298580332702}
   KnifeH2: {fileID: 9049824533299725533}
-  particles:
-  - {fileID: 5008774334159378112, guid: 4c851379a79ad90428f994a8c82a5b9f, type: 3}
-  speed: 35
-  angle: 15
-  CrossBow: 1
+  fruitParticles:
+  - {fileID: 3870513053560696427, guid: 717ae18f1265d374c897ceb4e47851f1, type: 3}
+  - {fileID: 6744228529752307756, guid: 9c27e4235d3921747b54eb99c9b022b3, type: 3}
+  - {fileID: 8634857735115458926, guid: ee3d7c0a6a247c947bd0d01bc10b5f58, type: 3}
+  - {fileID: 5688474827905674103, guid: ba23b9d3ec2c30544919df7efa8ed463, type: 3}
+  knifeToKnifeParticle: {fileID: 2192126214006498100, guid: 14a8bdd8d8c426843b8f8a4ae98539f8, type: 3}
+  myRigidbody: {fileID: 4928888583973369001}
+  mySpriteRenderer: {fileID: 554305545501729629}
+  shootSpeed: 35
+  rotateAngle: 15
+  rotateSpeed: 5
+  isCrossBow: 1
 --- !u!50 &4928888583973369001
 Rigidbody2D:
   serializedVersion: 4
@@ -256,8 +263,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: 887a65f3b2c81974bad69faa63bc6cf3, type: 3}
+  m_SortingOrder: 2
+  m_Sprite: {fileID: 21300000, guid: 3b383d4299a07234cb244ebb2c318402, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -285,7 +292,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 10.938364, y: 14.471427}
+    oldSize: {x: 12.8, y: 7.2}
     newSize: {x: 0.55, y: 0.55}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -367,7 +374,7 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 1
+  m_SortingOrder: 3
   m_Sprite: {fileID: 21300000, guid: 6b362e50e09ae8d4fb61fce4417a61af, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0

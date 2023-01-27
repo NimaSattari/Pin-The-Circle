@@ -210,10 +210,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5c88e7d593081fa4a84d997bca832a65, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rotateSpeed: 150
-  changeRotationTimer: 5
-  ShakeSpeed: 50
-  shakeAmount: 0.1
   faces:
   - {fileID: 21300000, guid: 3776af14cf813b64eb69b4ede50b9205, type: 3}
   - {fileID: 21300000, guid: 7946eb4e34c467c47aab0ed071c30b29, type: 3}
@@ -229,6 +225,7 @@ MonoBehaviour:
   objectsToInstant:
   - {fileID: 959251283218845146, guid: aa8ad85eed19696438dd29a06494cf72, type: 3}
   - {fileID: 5390451430769145186, guid: e2852a1293bc7064488c4d277c00cc74, type: 3}
+  - {fileID: 4036281919925078627, guid: 5570181de385ae44eaeda0ca3b01de49, type: 3}
   explodeParticle:
   - {fileID: 678479765261333173, guid: c4443d9f32ca9e94da7f6b45c720ce19, type: 3}
   - {fileID: 4149449957822573419, guid: 7f077636950886e46a2e5f23e5a7809f, type: 3}
@@ -249,11 +246,12 @@ MonoBehaviour:
   - {fileID: 1953878450228651161}
   - {fileID: 5562738192131023387}
   - {fileID: 1487610579741406714}
-  fruit: {fileID: 4403896293960311344}
   face: {fileID: 4403896294647840009}
+  howManyObjectsToSpawn: 0
   needsThisManyKnifesToDie: 0
-  knifeEntered: 0
-  howManyRocksOrWorms: 2
+  lowRotateSpeed: 0
+  highRotateSpeed: 0
+  initChangeRotationTimer: 0
 --- !u!114 &3976293259727598466
 MonoBehaviour:
   m_ObjectHideFlags: 0

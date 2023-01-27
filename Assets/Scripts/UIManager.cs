@@ -160,13 +160,16 @@ public class UIManager : MonoBehaviour
         }
     }
 
-    public void WinPanelActive(int level, int coin, int star)
+    public void WinPanelActive(int level, int coin, int star,bool isClassic)
     {
-        winLevelText.text = "Level: " + level;
-        winCoinText.text = coin.ToString();
-        for (int i = 0; i < star; i++)
+        if (isClassic)
         {
-            winStars[i].SetActive(true);
+            winLevelText.text = "Level: " + level;
+            for (int i = 0; i < star; i++)
+            {
+                winStars[i].SetActive(true);
+            }
         }
+        winCoinText.text = coin.ToString();
     }
 }

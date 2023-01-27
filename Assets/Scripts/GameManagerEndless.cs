@@ -146,7 +146,7 @@ public class GameManagerEndless : GameManager
         UIManager.instance.shooterButton.onClick.RemoveAllListeners();
         SaveLevel();
         UIManager.instance.LoadLosePanel();
-        UIManager.instance.WinPanelActive(0, thisRoundScore, 0);
+        UIManager.instance.WinPanelActive(0, thisRoundScore, 0, false);
         AudioManager.instance.PlayOnShot(AudioManager.instance.loseSound);
     }
 

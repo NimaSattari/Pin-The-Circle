@@ -208,7 +208,7 @@ public class GameManagerClassic : GameManager
             AudioManager.instance.PlayOnShot(AudioManager.instance.winSound);
             SaveLevel();
             UIManager.instance.LoadWinPanel();
-            UIManager.instance.WinPanelActive(level, thisRoundScore, howManyStars);
+            UIManager.instance.WinPanelActive(level, thisRoundScore, howManyStars, true);
         }
     }
 
