@@ -64,6 +64,7 @@
     <Compile Include="Assets\Imported Assets\DOTween Examples\UGUI.cs" />
     <Compile Include="Assets\Scripts\FruitCollision.cs" />
     <Compile Include="Assets\Scripts\LevelAsset.cs" />
+    <Compile Include="Assets\Scripts\KnifePool.cs" />
     <Compile Include="Assets\Imported Assets\DOTween Examples\Example Assets\DragTarget.cs" />
     <Compile Include="Assets\Imported Assets\DOTween Examples\Paths.cs" />
     <Compile Include="Assets\Scripts\GameManagerClassic.cs" />
@@ -82,7 +83,9 @@
     <Compile Include="Assets\Scripts\LevelButton.cs" />
     <Compile Include="Assets\Scripts\Tutorial1.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
+    <Compile Include="Assets\Scripts\GameManagerAttack.cs" />
     <Compile Include="Assets\Imported Assets\DOTween Examples\Materials.cs" />
+    <Compile Include="Assets\Scripts\FruitSpriteChanger.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />

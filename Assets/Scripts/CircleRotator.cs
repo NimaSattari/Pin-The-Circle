@@ -217,9 +217,11 @@ public class CircleRotator : MonoBehaviour
 
     private void ProcessDeath()
     {
-        Instantiate(explodeParticle[Random.Range(0, explodeParticle.Length)], transform.position, Quaternion.identity);
-        Destroy(Instantiate(letterParticle[Random.Range(0, letterParticle.Length)], transform.position, Quaternion.identity), 2);
+        GameObject explodeParticleInstant = Instantiate(explodeParticle[Random.Range(0, explodeParticle.Length)], transform.position, Quaternion.identity);
+        GameObject letterParticleInstant = Instantiate(letterParticle[Random.Range(0, letterParticle.Length)], transform.position, Quaternion.identity);
+        Destroy(letterParticleInstant, 2);
         StartCoroutine(GameManager.instance.NextFruit());
+        Destroy(gameObject);
     }
 
     private void ChangeFace(int faceid)

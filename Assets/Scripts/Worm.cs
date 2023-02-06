@@ -24,8 +24,7 @@ public class Worm : MonoBehaviour
         {
             Clothe.SetActive(false);
         }
-        dead1.transform.parent = null;
-        dead2.transform.parent = null;
+        transform.parent = null;
         dead1.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-30, 30), Random.Range(-30, 30)));
         dead2.GetComponent<Rigidbody2D>().AddForce(new Vector2(Random.Range(-30, 30), Random.Range(-30, 30)));
         dead2.GetComponent<Rigidbody2D>().MoveRotation(Mathf.LerpAngle(dead2.GetComponent<Rigidbody2D>().rotation, (Random.Range(-180, 180)), 5 * Time.deltaTime));

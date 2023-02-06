@@ -12,12 +12,15 @@ EditorBuildSettings:
     path: Assets/Scenes/1 Classic 1.unity
     guid: ebc21aa6064eaca4cb88448d23d752d3
   - enabled: 1
-    path: Assets/Scenes/1 Classic 2.unity
+    path: Assets/Scenes/2 Classic 2.unity
     guid: 29ea2edecb91d194d907f1779b8f68df
   - enabled: 1
-    path: Assets/Scenes/2 Endless.unity
+    path: Assets/Scenes/3 Endless.unity
     guid: 67d835642069a7b429af24848ecdd797
   - enabled: 1
-    path: Assets/Scenes/3 Time Trail.unity
+    path: Assets/Scenes/4 Time Trail.unity
     guid: cd722b4ebefc3af4bb075061b8a4afbf
+  - enabled: 1
+    path: Assets/Scenes/5 Fruit Attack.unity
+    guid: dfde4621d47c1b84294eced9e796b6be
   m_configObjects: {}

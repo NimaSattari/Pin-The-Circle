@@ -19,6 +19,7 @@ public class Knife : MonoBehaviour
     [SerializeField] float rotateAngle = 15f;
     [SerializeField] float rotateSpeed = 2f;
     [SerializeField] bool isCrossBow;
+    [SerializeField] bool isAttackMode;
 
     //private
     bool canShoot;
@@ -29,6 +30,11 @@ public class Knife : MonoBehaviour
     {
         qStart = Quaternion.AngleAxis(rotateAngle, Vector3.forward);
         qEnd = Quaternion.AngleAxis(-rotateAngle, Vector3.forward);
+        if (isAttackMode)
+        {
+            FirePin();
+            StartCoroutine(SetKnifeFalse());
+        }
     }
 
     void FixedUpdate()
@@ -75,7 +81,7 @@ public class Knife : MonoBehaviour
         else if (collision.tag == "Pin Head")
         {
             Knife otherKnife = collision.GetComponentInParent<Knife>();
-            if(otherKnife != null)
+            if (otherKnife != null)
             {
                 if (otherKnife.isItInFruit)
                 {
@@ -132,6 +138,12 @@ public class Knife : MonoBehaviour
     {
         yield return new WaitForSeconds(0.5f);
         transform.parent = null;
+    }
+
+    private IEnumerator SetKnifeFalse()
+    {
+        yield return new WaitForSeconds(2f);
+        Destroy(gameObject);
     }
 
     private IEnumerator ChangeColor(float timerr, Color firstColor, Color secondColor)

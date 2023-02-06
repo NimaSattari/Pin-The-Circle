@@ -34,7 +34,7 @@ public class GameManagerEndless : GameManager
     int howManyKnifesInGame;
     bool canShootFruitChange, canShootShake;
 
-    public void Start()
+    private void Start()
     {
         allMoney = SaveSystem.instance._money;
         instance = this;
@@ -74,7 +74,6 @@ public class GameManagerEndless : GameManager
     public void DecrementRemainedKnifes()
     {
         knifesList.Remove(knifesList[0]);
-
     }
 
     public void IncrementRemainedKnifes()
