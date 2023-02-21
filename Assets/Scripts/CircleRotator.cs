@@ -19,6 +19,7 @@ public class CircleRotator : MonoBehaviour
     public int needsThisManyKnifesToDie;
     public float lowRotateSpeed, highRotateSpeed;
     public float initChangeRotationTimer;
+    public bool isAttackMode = false;
 
     float angle;
     float finalSpeed;
@@ -221,7 +222,10 @@ public class CircleRotator : MonoBehaviour
         GameObject letterParticleInstant = Instantiate(letterParticle[Random.Range(0, letterParticle.Length)], transform.position, Quaternion.identity);
         Destroy(letterParticleInstant, 2);
         StartCoroutine(GameManager.instance.NextFruit());
-        Destroy(gameObject);
+        if (isAttackMode)
+        {
+            Destroy(gameObject);
+        }
     }
 
     private void ChangeFace(int faceid)

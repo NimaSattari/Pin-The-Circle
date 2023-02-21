@@ -82,6 +82,7 @@ MonoBehaviour:
   lowRotateSpeed: 0
   highRotateSpeed: 0
   initChangeRotationTimer: 0
+  isAttackMode: 1
 --- !u!114 &5839257898292878389
 MonoBehaviour:
   m_ObjectHideFlags: 0

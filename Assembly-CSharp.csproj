@@ -84,8 +84,8 @@
     <Compile Include="Assets\Scripts\Tutorial1.cs" />
     <Compile Include="Assets\Scripts\GameManager.cs" />
     <Compile Include="Assets\Scripts\GameManagerAttack.cs" />
-    <Compile Include="Assets\Imported Assets\DOTween Examples\Materials.cs" />
     <Compile Include="Assets\Scripts\FruitSpriteChanger.cs" />
+    <Compile Include="Assets\Imported Assets\DOTween Examples\Materials.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Assets\TextMesh Pro\Shaders\TMPro.cginc" />
