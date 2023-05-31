@@ -21,6 +21,7 @@ public class GameManagerAttack : GameManager
     [SerializeField] GameObject fruitParentGameObject;
     [SerializeField] GameObject[] fruitPrefabs;
     [SerializeField] GameObject knifePrefab;
+    [SerializeField] int fruitCollisionInitLifes = 3;
 
     [Header("Level Related")]
     [Range(100, 300)]
@@ -38,6 +39,7 @@ public class GameManagerAttack : GameManager
     int allMoney;
     int fruitsKilled;
     int thisRoundScore;
+    int lifes;
     bool canShootShake, shouldInstantiateFruit;
 
     public void Start()
@@ -48,6 +50,7 @@ public class GameManagerAttack : GameManager
         }
         instance = this;
         shouldInstantiateFruit = true;
+        lifes = fruitCollisionInitLifes;
         StartCoroutine(CreateFruit());
         StartCoroutine(LetShootShakeIn(0.25f));
         StartCoroutine(UIManager.instance.SetFruitText(0, Color.green));
@@ -118,6 +121,15 @@ public class GameManagerAttack : GameManager
         canShootShake = false;
         yield return new WaitForSeconds(timerr);
         canShootShake = true;
+    }
+
+    public void DecrementLife()
+    {
+        lifes--;
+        if(lifes <= 0)
+        {
+            Lose();
+        }
     }
 
     public override void Lose()

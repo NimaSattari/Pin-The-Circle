@@ -11,6 +11,8 @@ TagManager:
   - Rock
   - Fruit
   - FxTemporaire
+  - PlayerWall
+  - EnemyWall
   layers:
   - Default
   - TransparentFX

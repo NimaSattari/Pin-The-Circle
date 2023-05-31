@@ -132,6 +132,15 @@ public class Knife : MonoBehaviour
                 GameManager.instance.HandleKnifeToFruit();
             }
         }
+        else if(collision.tag == "EnemyWall")
+        {
+            canShoot = false;
+            myRigidbody.isKinematic = false;
+            myRigidbody.bodyType = RigidbodyType2D.Static;
+            isItInFruit = true;
+            AudioManager.instance.PlayOnShot(AudioManager.instance.knifeToRockSound);
+            Destroy(gameObject);
+        }
     }
 
     private IEnumerator SetParentToNull()
