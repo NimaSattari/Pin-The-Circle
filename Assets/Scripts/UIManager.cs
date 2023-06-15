@@ -27,12 +27,14 @@ public class UIManager : MonoBehaviour
 
     [SerializeField] TextMeshProUGUI knifeText;
     [SerializeField] TextMeshProUGUI scoreText;
+    [SerializeField] TextMeshProUGUI lifeText;
     [SerializeField] TextMeshProUGUI fruitText;
     [SerializeField] TextMeshProUGUI levelText;
     [SerializeField] TextMeshProUGUI timeText;
     [SerializeField] AllLevelsAsset allLevelsAsset;
 
     [SerializeField] TextMeshProUGUI scoreAnimationText;
+    [SerializeField] TextMeshProUGUI lifeAnimationText;
     [SerializeField] TextMeshProUGUI fruitAnimationText;
     [SerializeField] TextMeshProUGUI knifeAnimationText;
     [SerializeField] TextMeshProUGUI timeAnimationText;
@@ -120,6 +122,13 @@ public class UIManager : MonoBehaviour
         StartCoroutine(ChangeColor(scoreText, 0.25f, color, Color.white));
     }
 
+    public void SetLifeText(int thisRoundLife, Color color)
+    {
+        lifeText.text = thisRoundLife.ToString();
+        StartCoroutine(lifeText.GetComponent<DoTweenActions>().OneLoop());
+        StartCoroutine(ChangeColor(lifeText, 0.25f, color, Color.white));
+    }
+
     public IEnumerator SetFruitText(int remainedFruits, Color color)
     {
         fruitText.gameObject.SetActive(true);
@@ -157,6 +166,10 @@ public class UIManager : MonoBehaviour
         if(timeAnimationText != null)
         {
             timeAnimationText.GetComponent<DoTweenActions>().DoAnimation();
+        }
+        if (lifeAnimationText != null)
+        {
+            lifeAnimationText.GetComponent<DoTweenActions>().DoAnimation();
         }
     }
 

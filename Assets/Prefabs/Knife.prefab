@@ -165,7 +165,7 @@ MonoBehaviour:
   knifeToKnifeParticle: {fileID: 2192126214006498100, guid: 14a8bdd8d8c426843b8f8a4ae98539f8, type: 3}
   myRigidbody: {fileID: 4928888583973369001}
   mySpriteRenderer: {fileID: 554305545501729629}
-  shootSpeed: 35
+  shootSpeed: 45
   rotateAngle: 15
   rotateSpeed: 5
   isCrossBow: 0

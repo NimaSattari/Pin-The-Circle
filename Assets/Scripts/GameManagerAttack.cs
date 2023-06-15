@@ -33,11 +33,24 @@ public class GameManagerAttack : GameManager
     [Range(1, 10)]
     public int rangeOfFruitRotateTimerTop;
     [Range(1, 10)]
+    public int rangeOfFruitFallSpeedBottom;
+    [Range(1, 10)]
+    public int rangeOfFruitFallSpeedTop;
+    [Range(1, 10)]
+    public int superAttackFruitCountBottom;
+    [Range(1, 10)]
+    public int superAttackFruitCountTop;
+    [Range(1, 10)]
+    public int superAttackFruitTop;
+    [Range(1, 10)]
+    public int superAttackFruitBottom;
+    [Range(1, 10)]
     public int[] timeBetweenFruits = new int[2];
 
     List<GameObject> fruitsList = new List<GameObject>();
     int allMoney;
     int fruitsKilled;
+    int superFruitCharge, superFruitChargeThisRound;
     int thisRoundScore;
     int lifes;
     bool canShootShake, shouldInstantiateFruit;
@@ -48,11 +61,13 @@ public class GameManagerAttack : GameManager
         {
             allMoney = SaveSystem.instance._money;
         }
+        superFruitCharge = superAttackFruitCountTop;
         instance = this;
         shouldInstantiateFruit = true;
         lifes = fruitCollisionInitLifes;
         StartCoroutine(CreateFruit());
         StartCoroutine(LetShootShakeIn(0.25f));
+        UIManager.instance.SetLifeText(lifes, Color.green);
         StartCoroutine(UIManager.instance.SetFruitText(0, Color.green));
         UIManager.instance.shooterButton.onClick.AddListener(() => ShootPin());
         UIManager.instance.StartGame();
@@ -62,14 +77,36 @@ public class GameManagerAttack : GameManager
     {
         if (shouldInstantiateFruit)
         {
-            Vector3 fruitInitPos = new Vector3(Random.Range(-1.5f, 1.5f), 6, 0);
-            GameObject fruitInstant = Instantiate(fruitPrefabs[Random.Range(0, fruitPrefabs.Length)], fruitInitPos, Quaternion.identity, fruitParentGameObject.transform);
-            fruitsList.Add(fruitInstant);
-            fruitInstant.GetComponent<CircleRotator>().SetLevelValues(0, 1, rangeOfSpeedsBottom, rangeOfSpeedsTop,
-                                                                        Random.Range(rangeOfFruitRotateTimerBottom, rangeOfFruitRotateTimerTop));
-            yield return new WaitForSeconds(Random.Range(timeBetweenFruits[0], timeBetweenFruits[1]));
+            InstatiateFruit();
+            superFruitChargeThisRound++;
+            if (superFruitChargeThisRound >= superFruitCharge)
+            {
+                for (int i = 0; i < Random.Range(superAttackFruitBottom, superAttackFruitTop); i++)
+                {
+                    yield return new WaitForSeconds(Random.Range(timeBetweenFruits[0] / Random.Range(2, 4), timeBetweenFruits[1] / Random.Range(2, 4)));
+                    InstatiateFruit();
+                }
+                superFruitChargeThisRound = 0;
+                superFruitCharge = Random.Range(superAttackFruitCountBottom, superAttackFruitCountTop);
+            }
+            else
+            {
+                yield return new WaitForSeconds(Random.Range(timeBetweenFruits[0], timeBetweenFruits[1]));
+            }
             StartCoroutine(CreateFruit());
         }
+    }
+
+    private void InstatiateFruit()
+    {
+        Vector3 fruitInitPos = new Vector3(Random.Range(-1.5f, 1.5f), 6, 0);
+        GameObject fruitInstant = Instantiate(fruitPrefabs[Random.Range(0, fruitPrefabs.Length)], fruitInitPos, Quaternion.identity, fruitParentGameObject.transform);
+        fruitsList.Add(fruitInstant);
+
+        fruitInstant.GetComponent<CircleRotator>().SetLevelValues(0, 1, rangeOfSpeedsBottom, rangeOfSpeedsTop,
+                                                                    Random.Range(rangeOfFruitRotateTimerBottom, rangeOfFruitRotateTimerTop));
+
+        fruitInstant.GetComponent<Rigidbody2D>().gravityScale = (Random.Range(rangeOfFruitFallSpeedBottom, rangeOfFruitFallSpeedTop));
     }
 
     private void CreatePin()
@@ -126,7 +163,8 @@ public class GameManagerAttack : GameManager
     public void DecrementLife()
     {
         lifes--;
-        if(lifes <= 0)
+        UIManager.instance.SetLifeText(lifes, Color.red);
+        if (lifes <= 0)
         {
             Lose();
         }

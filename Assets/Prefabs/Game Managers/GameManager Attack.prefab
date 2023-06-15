@@ -82,10 +82,17 @@ MonoBehaviour:
   fruitPrefabs:
   - {fileID: 4403896293332412705, guid: f58781f8df126da42a0e953a16f3e733, type: 3}
   knifePrefab: {fileID: 8090445116990291838, guid: 96a843e75d12b5846bc2582648a8131d, type: 3}
+  fruitCollisionInitLifes: 3
   rangeOfSpeedsBottom: 100
   rangeOfSpeedsTop: 200
   rangeOfFruitRotateTimerBottom: 1
   rangeOfFruitRotateTimerTop: 10
+  rangeOfFruitFallSpeedBottom: 1
+  rangeOfFruitFallSpeedTop: 4
+  superAttackFruitCountBottom: 7
+  superAttackFruitCountTop: 10
+  superAttackFruitTop: 6
+  superAttackFruitBottom: 4
   timeBetweenFruits: 0100000005000000
 --- !u!1 &2522637557963161719
 GameObject:
